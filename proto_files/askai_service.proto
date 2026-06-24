@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package com.tcl.xr.service;
+option java_package = "com.tcl.xr.service";
+
+import "askai.proto";
+
+service AskAiService {
+  rpc chat(com.tcl.xr.message.AskAiRequest) returns (stream com.tcl.xr.message.AskAiResponse);
+  rpc search(com.tcl.xr.message.SearchRequest) returns (com.tcl.xr.message.SearchResponse);
+}

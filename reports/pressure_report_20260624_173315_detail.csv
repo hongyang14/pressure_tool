@@ -1,0 +1,2 @@
+﻿request_id,success,status_code,error,latency_ms,response_bytes,start_time,end_time,relative_end_second,body_template_index,body_template_label,debug_info
+1,False,13,GrpcError: INTERNAL: Exception deserializing request!,175.39829993620515,0,2026-06-24 17:33:15.512,2026-06-24 17:33:15.687,0,,,"target=47.94.77.104:8097, method_path=/com.tcl.xr.service.AskAiService/chat, request=com.tcl.xr.message.AskAiRequest, response=com.tcl.xr.message.AskAiResponse, server_streaming=True, payload_bytes=412"

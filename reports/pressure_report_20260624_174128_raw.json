@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-06-24 17:41:28",
+  "metrics": {
+    "total": 1,
+    "success_count": 0,
+    "fail_count": 1,
+    "success_rate": 0.0,
+    "fail_rate": 100.0,
+    "wall_time": 0.1671329999808222,
+    "qps": 5.983258842447307,
+    "success_qps": 0.0,
+    "tps": 0.0,
+    "avg_latency": 166.6071000508964,
+    "success_avg_latency": 0,
+    "min_latency": 166.6071000508964,
+    "max_latency": 166.6071000508964,
+    "p50_latency": 166.6071000508964,
+    "p90_latency": 166.6071000508964,
+    "p95_latency": 166.6071000508964,
+    "p99_latency": 166.6071000508964,
+    "avg_response_bytes": 0.0,
+    "status_counter": {
+      "13": 1
+    },
+    "error_counter": {
+      "GrpcError: INTERNAL: Exception deserializing request!": 1
+    },
+    "rps_counter": {
+      "0": 1
+    },
+    "body_template_metrics": []
+  },
+  "results": [
+    {
+      "request_id": 1,
+      "success": false,
+      "status_code": 13,
+      "error": "GrpcError: INTERNAL: Exception deserializing request!",
+      "latency_ms": 166.6071000508964,
+      "response_bytes": 0,
+      "start_time": "2026-06-24 17:41:28.426",
+      "end_time": "2026-06-24 17:41:28.593",
+      "relative_end_second": 0,
+      "body_template_index": null,
+      "body_template_label": "",
+      "debug_info": "target=47.94.77.104:8097, method_path=/com.tcl.xr.service.AskAiService/chat, request=com.tcl.xr.message.AskAiRequest, response=com.tcl.xr.message.AskAiResponse, server_streaming=True, payload_bytes=412"
+    }
+  ]
+}

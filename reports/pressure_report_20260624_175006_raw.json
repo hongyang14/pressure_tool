@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-06-24 17:50:06",
+  "metrics": {
+    "total": 1,
+    "success_count": 1,
+    "fail_count": 0,
+    "success_rate": 100.0,
+    "fail_rate": 0.0,
+    "wall_time": 7.277648599818349,
+    "qps": 0.1374070190782446,
+    "success_qps": 0.1374070190782446,
+    "tps": 0.1374070190782446,
+    "avg_latency": 7276.943400036544,
+    "success_avg_latency": 7276.943400036544,
+    "min_latency": 7276.943400036544,
+    "max_latency": 7276.943400036544,
+    "p50_latency": 7276.943400036544,
+    "p90_latency": 7276.943400036544,
+    "p95_latency": 7276.943400036544,
+    "p99_latency": 7276.943400036544,
+    "avg_response_bytes": 89937.0,
+    "status_counter": {
+      "0": 1
+    },
+    "error_counter": {},
+    "rps_counter": {
+      "7": 1
+    },
+    "body_template_metrics": []
+  },
+  "results": [
+    {
+      "request_id": 1,
+      "success": true,
+      "status_code": 0,
+      "error": "",
+      "latency_ms": 7276.943400036544,
+      "response_bytes": 89937,
+      "start_time": "2026-06-24 17:49:59.583",
+      "end_time": "2026-06-24 17:50:06.859",
+      "relative_end_second": 7,
+      "body_template_index": null,
+      "body_template_label": "",
+      "debug_info": "target=47.94.77.104:8097, method_path=/com.tcl.xr.service.AskAiService/chat, request=com.tcl.xr.message.AskAiRequest, response=com.tcl.xr.message.AskAiResponse, server_streaming=True, payload_bytes=354"
+    }
+  ]
+}

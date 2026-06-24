@@ -1,0 +1,193 @@
+syntax = "proto3";
+
+package com.tcl.xr.voice.message;
+option java_package = "com.tcl.xr.voice.message";
+
+//text nlp数据定义
+message NLP {
+  string content = 1;
+  string deviceId = 2;
+  double lat = 3;
+  double lng = 4;
+}
+
+//nlp应答使用base QueryDetail
+message DeviceStatus {
+  string bluetoothAnnouncement = 1;
+  string streamMediaPlayback = 2;
+  string phoneRinging = 3;
+}
+
+message ChatRequestHeader {
+  string dialogId = 1;
+  string deviceId = 2;
+  string roundId = 14;
+  int32 round = 3;
+  string userId = 4; // 用户id, 特别的调用 MCP 工具的时候，要通过 header 传给 MCP 工具
+  string traceId = 5;
+  string deviceModel = 6;
+
+  // 通过定位服务，未授权时为数据类型的默认值
+  double latitude = 7;
+  double longitude = 8;
+  string locale = 9;
+  string currentDateTime = 10;
+  string physicalRegion = 11;
+  string physicalTimeZone = 13;
+
+  // 不论何时，使用服务器，当前时间戳，unix 时间，精确到毫秒
+  int64 timestamp = 16;
+
+  // 端侧系统时区
+  string timeZone = 15;
+  // 端侧系统地区（如国家）
+  string region = 17;
+
+  string languageCode = 18;
+}
+
+message Message {
+  string role = 1;
+  string content = 2;
+}
+
+message ChatRequestBody {
+  string text = 1;
+  string currentDateTime = 2;
+  string currentLocation = 3;
+  string imageUrl = 4;
+  // 多轮
+  repeated Message messages = 5;
+
+  string model = 6;
+
+  // 消息来源，比如 glasses/phone/web 等，因为来源不同，反馈的消息格式不同，手机比较复杂，眼镜比较简单
+  string msgSource = 7;
+
+  string jiuTianDeviceCode = 8;
+}
+
+message ChatRequest {
+  ChatRequestHeader header = 1;
+  ChatRequestBody body = 2;
+}
+
+message ChatResponseHeader {
+  string roundId = 3;
+  int32 round = 1;
+  string dialogId = 2;
+}
+
+message IntentInfo {
+  string intent = 1;
+  string domain = 2;
+}
+
+message AgentInfo {
+  repeated IntentInfo intentInfos = 1;
+}
+
+message ExtraInfo {
+  string commands = 1;
+  AgentInfo agentInfo = 2;
+}
+
+message BackReference {
+  // 引用来源类型，比如 session/lifelog/web/reminder/calendar/mail
+  string type = 1;
+
+  //  type 不为 web 用 id字段， 为 web 时用 url 字段。
+  string relatedId= 2;
+
+  // type 为 session/lifelog 时，要精确到具体某句话 id
+  string sentenceId = 3;
+
+  // 展示在
+  string title = 4;
+
+  // 只有当 type 取值为 web 的时候，才有 url 字段
+  string url = 5;
+}
+
+message SuggestItem {
+  // 待办应该为todo
+  string suggestType = 1;
+
+  // 内容主要在这里
+  string content = 2;
+
+  //似乎对于前端展示不太需要
+  int32 suggestLevel = 3;
+
+  // 似乎也不太重要对于askai
+  string relatedConfig = 4;
+}
+
+message SuggestInfo {
+  repeated SuggestItem items = 1;
+}
+
+message ReasonDetail {
+  // web_search | reasoning 等
+  string status = 1;
+
+  // 思考内容，如果有的话
+  string content = 2;
+}
+
+message ChatResponseBody {
+  // contentResponding | modelReasoning
+  string event = 1;
+  // 应答
+  string text = 2;
+  // 应答语音
+  string spoken = 3;
+  // 是否结束
+  bool finished = 4;
+  // 额外信息
+  ExtraInfo extraInfo = 5;
+  // 原始查询
+  string query = 6;
+
+  /**
+   * 引用标注列表
+   */
+  repeated BackReference backReferenceList = 7;
+
+  /**
+   * 引用来源数量
+   */
+  int32 backReferCount = 8;
+
+  /**
+   * glasses/phone/web 等，因为 glasses 眼镜和 phone 手机的回复消息格式不同。
+   */
+  string msgSource = 9;
+
+  /**
+   * 选择使用的模型
+   */
+  string model = 10;
+
+  // suggest字段
+  SuggestInfo suggestInfo = 11;
+
+  // 思考状态和内容
+  ReasonDetail reasonDetail = 12;
+}
+
+message ChatResponse {
+  ChatResponseHeader header = 1;
+  ChatResponseBody body = 2;
+}
+
+message ListModelsRequest {}
+message ListModelsResponse { repeated string models = 1; }
+message ListLanguagesRequest {}
+message ListLanguagesResponse { repeated string languages = 1; }
+
+service AlgorithmNlpService {
+  rpc Chat(ChatRequest) returns (stream ChatResponse);
+  rpc ListModels(ListModelsRequest) returns (ListModelsResponse);
+  rpc ListLanguages(ListLanguagesRequest) returns (ListLanguagesResponse);
+}

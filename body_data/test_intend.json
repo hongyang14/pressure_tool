@@ -1,0 +1,97 @@
+[
+    {
+    "header": {
+        "dialogId": "21",
+        "deviceId": "93",
+        "roundId": "32",
+        "round":5863428,
+        "userId": "23",
+        "traceId": "",
+        "deviceModel": "fugiat",
+        "latitude": 81,
+        "longitude": 63,
+        "locale": "ea sunt fugiat",
+        "currentDateTime": "2025-07-26",
+        "physicalRegion": "qui",
+        "physicalTimeZone": "Indian/Maldives",
+        "timestamp": 4994850898275189,
+        "timeZone": "America/Belem",
+        "region": "西北",
+        "languageCode": "zh"
+
+    },
+    "body": {
+        "text": "今天天气如何",
+        "messages": [
+
+        ],
+        "model": "",
+        "msgSource": "glasses",
+        "jiuTianDeviceCode": "92"
+    }
+}
+,
+    {
+    "header": {
+        "dialogId": "21",
+        "deviceId": "93",
+        "roundId": "32",
+        "round":5863428,
+        "userId": "23",
+        "traceId": "",
+        "deviceModel": "fugiat",
+        "latitude": 81,
+        "longitude": 63,
+        "locale": "ea sunt fugiat",
+        "currentDateTime": "2025-07-26",
+        "physicalRegion": "qui",
+        "physicalTimeZone": "Indian/Maldives",
+        "timestamp": 4994850898275189,
+        "timeZone": "America/Belem",
+        "region": "西北",
+        "languageCode": "zh"
+
+    },
+    "body": {
+        "text": "这个月有法定假日吗",
+        "messages": [
+
+        ],
+        "model": "",
+        "msgSource": "glasses",
+        "jiuTianDeviceCode": "92"
+    }
+}
+,
+    {
+    "header": {
+        "dialogId": "21",
+        "deviceId": "93",
+        "roundId": "32",
+        "round":5863428,
+        "userId": "23",
+        "traceId": "",
+        "deviceModel": "fugiat",
+        "latitude": 81,
+        "longitude": 63,
+        "locale": "ea sunt fugiat",
+        "currentDateTime": "2025-07-26",
+        "physicalRegion": "qui",
+        "physicalTimeZone": "Indian/Maldives",
+        "timestamp": 4994850898275189,
+        "timeZone": "America/Belem",
+        "region": "西北",
+        "languageCode": "zh"
+
+    },
+    "body": {
+        "text": "现在几点",
+        "messages": [
+
+        ],
+        "model": "",
+        "msgSource": "glasses",
+        "jiuTianDeviceCode": "92"
+    }
+}
+]

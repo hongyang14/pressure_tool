@@ -1,0 +1,118 @@
+﻿# 每个接口用 --- 分隔，key=value 或 key: value 都可以。
+# headers/body 支持多行 JSON，分别用 headers: 和 body: 起始。
+
+---
+name: 示例 POST 接口
+method: POST
+url: http://127.0.0.1:8000/predict
+headers:
+{
+  "Content-Type": "application/json; charset=utf-8"
+}
+body:
+{
+  "text": "hello"
+}
+
+---
+name: 示例 gRPC Chat
+method: GRPC
+url: grpc://127.0.0.1:50051
+proto: intend.proto
+body:
+{
+  "header": {
+    "chatId": "c1",
+    "deviceId": "dev1",
+    "accountId": "u1",
+    "languageCode": "zh-CN",
+    "currentDateTime": "2026-06-24 16:00:00",
+    "currentTimeZone": "Asia/Shanghai"
+  },
+  "body": {
+    "text": "你好",
+    "msgSource": "glasses"
+  }
+}
+---
+name: 录音总结（国内：真实业务接口）
+method: POST
+url: http://47.94.77.104:8264/api/v1/sessions
+headers:
+{
+  "Content-Type": "application/json; charset=utf-8"
+}
+body:
+{
+  "text": "hello"
+}
+---
+name: suggest（国内：真实业务接口）
+method: POST
+url: http://47.94.77.104:8264/api/v1/suggestion
+headers:
+{
+  "Content-Type": "application/json; charset=utf-8"
+}
+body:
+{
+  "text": "hello"
+}
+---
+name: lifelog（国内：真实业务接口）
+method: POST
+url: http://47.94.77.104:8543/api/v1/trigger
+headers:
+{
+  "Content-Type": "application/json; charset=utf-8"
+}
+body:
+{
+  "text": "hello"
+}
+---
+name: 意图识别（GRPC国内）
+method: GRPC
+url: http://47.94.77.104:8004
+proto: intend.proto
+body:
+{
+  "header": {
+    "dialogId": "d1",
+    "deviceId": "dev1",
+    "roundId": "r1",
+    "round": 1,
+    "userId": "u1",
+    "traceId": "t1"
+  },
+  "body": {
+    "text": "你好",
+    "msgSource": "glasses"
+  }
+}
+---
+name: ASK AI（GRPC国内）
+method: GRPC
+url: http://47.94.77.104:8097
+proto: askai.proto
+service: com.tcl.xr.service.AskAiService
+rpc: chat
+request: com.tcl.xr.message.AskAiRequest
+response: com.tcl.xr.message.AskAiResponse
+server_streaming: true
+body:
+{
+  "header": {
+    "chatId": "c1",
+    "deviceId": "dev1",
+    "accountId": "u1",
+    "languageCode": "zh-CN",
+    "currentDateTime": "2026-06-24 16:00:00",
+    "currentTimeZone": "Asia/Shanghai"
+  },
+  "body": {
+    "text": "你好",
+    "msgSource": "glasses"
+  }
+}
+

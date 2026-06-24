@@ -1,0 +1,41 @@
+api_pressure_tool/
+│
+├── main.py                                   # 项目的主入口文件
+│
+└── app/
+    ├── __init__.py                           # app 包的初始化
+    ├── config/
+    │   ├── __init__.py                       # config 包的初始化
+    │   └── default_config.py                  # 默认配置文件
+    │
+    ├── core/
+    │   ├── __init__.py                       # core 包的初始化
+    │   ├── http_client.py                     # 处理 HTTP 请求的客户端
+    │   ├── metrics.py                         # 可能涉及的性能指标
+    │   ├── pressure_runner.py                 # 负责执行压力测试的核心逻辑
+    │   ├── result_model.py                    # 处理测试结果的模型
+    │   └── task_model.py                      # 定义压力测试任务的模型
+    │
+    ├── gui/                                   # 图形用户界面相关代码
+    │   ├── __init__.py                        # gui 包的初始化
+    │   ├── config_panel.py                    # 配置面板的界面
+    │   ├── log_panel.py                       # 日志面板的界面
+    │   ├── main_window.py                     # 主窗口的 GUI 逻辑
+    │   └── metric_panel.py                    # 性能指标面板的 GUI
+    │
+    ├── report/                                # 报告相关模块
+    │   ├── __init__.py                        # report 包的初始化
+    │   ├── chart.py                           # 生成图表的功能
+    │   ├── csv_report.py                      # 生成 CSV 格式报告
+    │   ├── html_report.py                     # 生成 HTML 格式报告
+    │   ├── json_report.py                     # 生成 JSON 格式报告
+    │   └── report_generator.py                 # 处理报告生成的逻辑
+    │
+    ├── utils/                                 # 工具类模块
+    │   ├── __init__.py                        # utils 包的初始化
+    │   ├── body_utils.py                      # 处理请求体的工具
+    │   ├── file_utils.py                      # 文件操作工具
+    │   ├── json_utils.py                      # JSON 操作工具
+    │   ├── time_utils.py                      # 时间处理工具
+    │   ├── url_utils.py                       # URL 处理工具
+    │   └── validators.py                       # 验证工具

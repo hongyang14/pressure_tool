@@ -1,0 +1,316 @@
+syntax = "proto3";
+
+package com.tcl.xr.message;
+option java_package = "com.tcl.xr.message";
+
+// 检索范围方案1
+message LifeLogCalendarRefer {
+  // global 为 true 表示检索所有的LifeLog
+  bool global = 1;
+  // 表示开始时间，使用 UTC  timestamp 表示。
+  int64 startTime = 2;
+  // 表示结束时间，使用 UTC timestamp 表示。
+  int64 endTime = 3;
+}
+
+
+message DateRange {
+  // 表示开始时间，使用 UTC  timestamp 表示。
+  int64 startTime = 2;
+  // 表示结束时间，使用 UTC timestamp 表示。
+  int64 endTime = 3;
+}
+
+
+message NewLifeLogCalendarRefer {
+  // global 为 true 表示检索所有的LifeLog
+  bool global = 1;
+  // day/天 的时间范围
+  repeated DateRange day = 2;
+  // week/周 的时间范围
+  repeated DateRange week = 3;
+  // month/月 的时间范围
+  repeated DateRange month = 4;
+}
+
+
+// 给算法组时，汇总下 selectId。
+message ItemScope {
+  // type 取值为 session/topic/conversation
+  string type = 1;
+  // 取值为 all 表示全选， multiple 表示是多选
+  string selectType = 2;
+  // 取值为 multiple 的时候，才需要设置 selectIdList 表示都取哪些 id。
+  // lifelog 也可能有 selectIdList 的，因为有全天候录音 conversation task.
+  repeated string selectIdList = 3;
+}
+
+
+/**
+ * 上下文，需要跟 语音助手一样传递 role 和 content
+ */
+message Message {
+  string role = 1;
+  string content = 2;
+}
+
+
+message ReferConfig {
+  bool global = 3;
+  repeated ItemScope items = 1;
+  LifeLogCalendarRefer lifeLogCalendarRefer = 2;
+  NewLifeLogCalendarRefer newLifeLogCalendarRefer = 4;
+}
+
+message AskAiRequestHeader {
+  // 建议改成 chatId, 不行的话，我这边兼容下，还叫 dialogId 也行？
+  string chatId = 1;
+  string deviceId = 2;
+  string roundId = 14;
+  int32 round = 3;
+  string accountId = 4;
+  string traceId = 5;
+  string deviceModel = 6;
+  double latitude = 7;
+  double longitude = 8;
+  // 语言编码，比如 zh, en, yue; 建议改成 languageCode, 不行的话， locale 也行
+  string languageCode = 9;
+
+  string currentDateTime = 10;
+  string currentLocation = 11;
+  string currentTimeZone = 13;
+}
+
+
+message AskAiRequestBody {
+  string text = 1;
+  string currentDateTime = 2;
+  string currentLocation = 3;
+  // 多轮
+  repeated Message messages = 5;
+  // 数据检索范围
+  ReferConfig referConfig = 6;
+  // 消息来源，比如 glasses/phone/web 等，因为来源不同，反馈的消息格式不同，手机比较复杂，眼镜比较简单
+  string msgSource = 7;
+  // 选择使用的模型
+  string model = 8;
+
+  // 设备类型，比如 V3, X3 等
+  // vqa 图片URL, 担心将来是列表，所以是 repeated。图片URL 是个临时连接，过期会失效。
+  repeated string fileUrlList = 13;
+  // vqa 图片id, 担心将来是列表，所以是 repeated。
+  repeated string filePathList = 14;  // OSS 上完整路径
+}
+
+message AskAiRequest {
+  AskAiRequestHeader header = 1;
+  AskAiRequestBody body = 2;
+}
+
+
+message BackReference {
+
+  // 引用来源类型，比如 session/lifelog/web/task/schedule/mail
+  string type = 1;
+
+
+  //  type 不为 web 用 id字段， 为 web 时用 url 字段。
+  string relatedId= 2;
+
+  // type 为 session/lifelog 时，要精确到具体某句话 id
+  string sentenceId = 3;
+
+  // 展示在
+  string title = 4;
+
+  // 只有当 type 取值为 web 的时候，才有 url 字段
+  string url = 5;
+
+  // type 为 lifelog 时，表示引用的子类型：event/daily/weekly/monthly。
+  string subType = 6;
+
+  // type 为 lifelog 时，对应 journal/event 的开始时间，毫秒级时间戳。
+  int64 startTime = 7;
+
+  // type 为 lifelog 时，对应 journal 生成时的时区。
+  string timeZone = 8;
+
+}
+
+
+message AskAiResponseHeader {
+  string roundId = 3;
+  int32 round = 1;
+  // 推荐使用 chatId, 不行的用dialogId 也行。
+  string chatId = 2;
+}
+
+message IntentInfo {
+  string intent = 1;
+  string domain = 2;
+}
+
+message AgentInfo {
+  repeated IntentInfo intentInfos = 1;
+}
+
+message ExtraInfo {
+  string commands = 1;
+  AgentInfo agentInfo = 2;
+}
+
+
+message SuggestItem {
+  // 待办应该为todo
+  string suggestType = 1;
+
+  // 内容主要在这里
+  string content = 2;
+
+  //似乎对于前端展示不太需要
+  int32 suggestLevel = 3;
+
+  // 似乎也不太重要对于askai
+  string relatedConfig = 4;
+}
+
+
+message SuggestInfo {
+  repeated SuggestItem items = 1;
+}
+
+message ReasonDetail {
+  // web_search | reasoning
+  string status = 1;
+
+  // 思考内容或联网状态展示文案
+  string content = 2;
+}
+
+message AskAiResponseBody {
+  // contentResponding | modelReasoning
+  string event = 1;
+
+  /** markdown 格式的消息, markdown 文档中使用标签 标注出 待办。比如：
+   * <ul>
+   * <li class=reminder metadata={"repeat_type": "daily", "repeat_interval": 1, "datetime_expression": "十点", "days_of_week": [1], "months_of_year": [2], "days_of_month": [3] }>待办1</li>
+   * </ul>
+   */
+  string text = 2;
+
+  // 传给 TTS ，真正发音的部分
+  string spoken = 3;
+
+  // 是否结束
+  bool finished = 4;
+
+  // 额外信息
+  ExtraInfo extraInfo = 5;
+
+  // 原始查询
+  string query = 6;
+
+  /**
+   * 引用标注列表
+   */
+  repeated BackReference backReferenceList = 7;
+
+  /**
+   * 引用来源数量
+   */
+  int32 backReferCount = 8;
+
+  /**
+   * glasses/phone/web 等，因为 glasses 眼镜和 phone 手机的回复消息格式不同。
+   */
+  string msgSource = 9;
+
+  /**
+   * 选择使用的模型
+   */
+  string model = 10;
+
+  // 新加的待办字段
+  SuggestInfo suggestInfo = 11;
+
+  // 思考状态和内容
+  ReasonDetail reasonDetail = 12;
+
+  /**
+   * 从 rag 数据库中检索到的数据。
+   */
+  int64 ragResultCount = 13;
+}
+
+
+message AskAiResponse {
+  AskAiResponseHeader header = 1;
+  AskAiResponseBody body = 2;
+}
+
+// search 请求参数。未传或传 0 时使用服务端默认配置。
+message RetrievalOptions {
+  int32 denseTopk = 1;
+  int32 sparseTopk = 2;
+  int32 rerankTopk = 3;
+  string retrieveMode = 4;
+}
+
+message SearchRequest {
+  AskAiRequestHeader header = 1;
+  AskAiRequestBody body = 2;
+  RetrievalOptions options = 3;
+}
+
+message RetrievalEntity {
+  string text = 1;
+  string accountId = 2;
+  string transcriptSource = 3;
+  string sourceTopic = 4;
+  string conversationId = 5;
+  string clipId = 6;
+  string speakerType = 7;
+  string speakerName = 8;
+  string content = 9;
+  string translateContent = 10;
+  string conversationStartTime = 11;
+  string conversationEndTime = 12;
+  string isDelete = 13;
+  string recordType = 14;
+  string bizId = 15;
+  string description = 16;
+  string priority = 17;
+  string starred = 18;
+  string completed = 19;
+  string sourceType = 20;
+  string sourceId = 21;
+  string createTime = 22;
+  string updateTime = 23;
+  // 不在上述固定字段内的可序列化 entity 信息，JSON 字符串；embedding 不会放入。
+  string extraJson = 100;
+}
+
+message RetrievalHit {
+  string id = 1;
+  double distance = 2;
+  double score = 3;
+  double rerankScore = 4;
+  RetrievalEntity entity = 5;
+}
+
+message SearchResponse {
+  AskAiResponseHeader header = 1;
+  AskAiResponseBody body = 2;
+
+  string retrievalQuery = 3;
+
+  repeated RetrievalHit rawTranscriptHitList = 4;
+  repeated RetrievalHit rankedTranscriptHitList = 5;
+  repeated RetrievalHit agendaHitList = 6;
+  string topicBlock = 7;
+  string lifelogBlock = 8;
+  double rewriteMs = 9;
+  double retrieveMs = 10;
+  double rerankMs = 11;
+  double retrieveTaskScheduleMs = 12;
+}

@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-06-24 17:48:59",
+  "metrics": {
+    "total": 1,
+    "success_count": 0,
+    "fail_count": 1,
+    "success_rate": 0.0,
+    "fail_rate": 100.0,
+    "wall_time": 0.030164900003001094,
+    "qps": 33.15111271380016,
+    "success_qps": 0.0,
+    "tps": 0.0,
+    "avg_latency": 29.754099901765585,
+    "success_avg_latency": 0,
+    "min_latency": 29.754099901765585,
+    "max_latency": 29.754099901765585,
+    "p50_latency": 29.754099901765585,
+    "p90_latency": 29.754099901765585,
+    "p95_latency": 29.754099901765585,
+    "p99_latency": 29.754099901765585,
+    "avg_response_bytes": 0.0,
+    "status_counter": {
+      "EXCEPTION": 1
+    },
+    "error_counter": {
+      "gRPC Body 必须是请求消息对应的 JSON：Expecting value: line 1 column 1 (char 0)": 1
+    },
+    "rps_counter": {
+      "0": 1
+    },
+    "body_template_metrics": []
+  },
+  "results": [
+    {
+      "request_id": 1,
+      "success": false,
+      "status_code": null,
+      "error": "gRPC Body 必须是请求消息对应的 JSON：Expecting value: line 1 column 1 (char 0)",
+      "latency_ms": 29.754099901765585,
+      "response_bytes": 0,
+      "start_time": "2026-06-24 17:48:58.974",
+      "end_time": "2026-06-24 17:48:59.004",
+      "relative_end_second": 0,
+      "body_template_index": null,
+      "body_template_label": "",
+      "debug_info": ""
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<title>算法接口压测报告</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+    background: #f6f7f9;
+    padding: 24px;
+    color: #222;
+}
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+.metric {
+    background: #f7f8fa;
+    border-radius: 8px;
+    padding: 12px;
+}
+.metric .name {
+    color: #666;
+    font-size: 13px;
+}
+.metric .value {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+.success {
+    color: #1f9d55;
+}
+.fail {
+    color: #d93025;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+}
+th, td {
+    border: 1px solid #e5e7eb;
+    padding: 8px 10px;
+    font-size: 14px;
+    text-align: left;
+}
+th {
+    background: #f0f2f5;
+}
+a {
+    color: #2563eb;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="card">
+    <h1>算法接口压测报告</h1>
+    <p>生成时间：2026-06-24 17:48:59</p>
+    <p>
+        CSV 明细：
+        <a href="./pressure_report_20260624_174859_detail.csv">pressure_report_20260624_174859_detail.csv</a>
+        &nbsp;&nbsp;
+        JSON 原始结果：
+        <a href="./pressure_report_20260624_174859_raw.json">pressure_report_20260624_174859_raw.json</a>
+    </p>
+</div>
+
+<div class="card">
+    <h2>一、压测配置</h2>
+    <table>
+        <tr><th>配置项</th><th>值</th></tr>
+        <tr><td>URL</td><td>http://47.94.77.104:8097</td></tr>
+        <tr><td>Method</td><td>GRPC</td></tr>
+        <tr><td>并发数</td><td>1</td></tr>
+        <tr><td>压测模式</td><td>固定请求数</td></tr>
+        <tr><td>总请求数</td><td>1</td></tr>
+        <tr><td>持续时长</td><td>不适用</td></tr>
+        <tr><td>思考时间</td><td>未启用</td></tr>
+        <tr><td>Body 数据文件</td><td>未使用</td></tr>
+        <tr><td>Proto 文件</td><td>D:\PythonProject\api_pressure_tool\proto_files\askai.proto</td></tr>
+        <tr><td>超时时间</td><td>300.0 秒</td></tr>
+        <tr><td>Ramp-up</td><td>0.0 秒</td></tr>
+        <tr><td>成功关键字</td><td></td></tr>
+    </table>
+</div>
+
+<div class="card">
+    <h2>二、核心指标</h2>
+    <div class="metric-grid">
+        <div class="metric"><div class="name">总请求数</div><div class="value">1</div></div>
+        <div class="metric"><div class="name">成功数</div><div class="value success">0</div></div>
+        <div class="metric"><div class="name">失败数</div><div class="value fail">1</div></div>
+        <div class="metric"><div class="name">成功率</div><div class="value">0.00%</div></div>
+
+        <div class="metric"><div class="name">总耗时</div><div class="value">0.03s</div></div>
+        <div class="metric"><div class="name">QPS</div><div class="value">33.15</div></div>
+        <div class="metric"><div class="name">成功 QPS</div><div class="value">0.00</div></div>
+        <div class="metric"><div class="name">TPS</div><div class="value">0.00</div></div>
+        <div class="metric"><div class="name">平均响应大小</div><div class="value">0.0 B</div></div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>三、耗时指标</h2>
+    <table>
+        <tr><th>指标</th><th>值</th></tr>
+        <tr><td>平均耗时</td><td>29.75 ms</td></tr>
+        <tr><td>成功请求平均耗时</td><td>0.00 ms</td></tr>
+        <tr><td>最小耗时</td><td>29.75 ms</td></tr>
+        <tr><td>最大耗时</td><td>29.75 ms</td></tr>
+        <tr><td>P50</td><td>29.75 ms</td></tr>
+        <tr><td>P90</td><td>29.75 ms</td></tr>
+        <tr><td>P95</td><td>29.75 ms</td></tr>
+        <tr><td>P99</td><td>29.75 ms</td></tr>
+    </table>
+</div>
+
+<div class="card">
+    <h3>每秒完成请求数</h3>
+<svg width="900" height="260" style="background:#fff;border:1px solid #eee;">
+<line x1="50" y1="30" x2="50" y2="210" stroke="#333"/>
+<line x1="50" y1="210" x2="880" y2="210" stroke="#333"/>
+<rect x="56.0" y="30.0" width="814.0" height="180.0" fill="#4e79a7"/>
+<text x="463.0" y="26.0" font-size="10" text-anchor="middle">1</text>
+<text x="463.0" y="226" font-size="10" text-anchor="middle">0</text>
+</svg>
+</div>
+
+<div class="card">
+    <h3>状态码分布</h3>
+<svg width="900" height="260" style="background:#fff;border:1px solid #eee;">
+<line x1="50" y1="30" x2="50" y2="210" stroke="#333"/>
+<line x1="50" y1="210" x2="880" y2="210" stroke="#333"/>
+<rect x="56.0" y="30.0" width="814.0" height="180.0" fill="#4e79a7"/>
+<text x="463.0" y="26.0" font-size="10" text-anchor="middle">1</text>
+<text x="463.0" y="226" font-size="10" text-anchor="middle">EXCEPTION</text>
+</svg>
+    <table>
+        <tr><th>状态码</th><th>数量</th></tr>
+        
+        <tr>
+            <td>EXCEPTION</td>
+            <td>1</td>
+        </tr>
+        
+    </table>
+</div>
+
+<div class="card">
+    <h2>四、错误分布</h2>
+    <table>
+        <tr><th>错误信息</th><th>数量</th></tr>
+        
+        <tr>
+            <td>gRPC Body 必须是请求消息对应的 JSON：Expecting value: line 1 column 1 (char 0)</td>
+            <td>1</td>
+        </tr>
+        
+    </table>
+</div>
+
+
+
+<div class="card">
+    <h2>六、结论建议</h2>
+    <ul>
+        <li>如果 P95 / P99 明显高于平均耗时，说明接口存在长尾延迟。</li>
+        <li>如果失败率较高，优先查看状态码分布和错误分布。</li>
+        <li>如果并发提升后 QPS 不再增长，说明服务端已接近容量瓶颈。</li>
+        <li>建议按照不同并发梯度多轮压测，例如 1、5、10、20、50、100。</li>
+    </ul>
+</div>
+
+</div>
+</body>
+</html>
