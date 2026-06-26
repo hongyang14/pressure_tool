@@ -1,2 +1,0 @@
-﻿request_id,success,status_code,error,latency_ms,response_bytes,start_time,end_time,relative_end_second,body_template_index,body_template_label,debug_info
-1,True,0,,5099.151000147685,60061,2026-06-24 18:09:15.394,2026-06-24 18:09:20.493,5,,,"target=47.94.77.104:8097, method_path=/com.tcl.xr.service.AskAiService/chat, request=com.tcl.xr.message.AskAiRequest, response=com.tcl.xr.message.AskAiResponse, server_streaming=True, payload_bytes=354"

@@ -15,10 +15,10 @@ class MetricPanel(ttk.LabelFrame):
             "success_rate": tk.StringVar(value="0.00%"),
             "qps": tk.StringVar(value="0.00"),
             "tps": tk.StringVar(value="0.00"),
+            "avg_first_frame": tk.StringVar(value="0.00 ms"),
+            "first_frame_p95": tk.StringVar(value="0.00 ms"),
             "avg_latency": tk.StringVar(value="0.00 ms"),
-            "p90": tk.StringVar(value="0.00 ms"),
             "p95": tk.StringVar(value="0.00 ms"),
-            "p99": tk.StringVar(value="0.00 ms"),
         }
 
         self._build()
@@ -32,10 +32,10 @@ class MetricPanel(ttk.LabelFrame):
             ("QPS", "qps"),
 
             ("TPS", "tps"),
-            ("平均耗时", "avg_latency"),
-            ("P90", "p90"),
-            ("P95", "p95"),
-            ("P99", "p99"),
+            ("平均首帧", "avg_first_frame"),
+            ("首帧 P95", "first_frame_p95"),
+            ("平均完整耗时", "avg_latency"),
+            ("完整耗时 P95", "p95"),
         ]
 
         # 每行放 5 个指标，避免窗口太挤
@@ -72,10 +72,10 @@ class MetricPanel(ttk.LabelFrame):
         self.vars["success_rate"].set("0.00%")
         self.vars["qps"].set("0.00")
         self.vars["tps"].set("0.00")
+        self.vars["avg_first_frame"].set("0.00 ms")
+        self.vars["first_frame_p95"].set("0.00 ms")
         self.vars["avg_latency"].set("0.00 ms")
-        self.vars["p90"].set("0.00 ms")
         self.vars["p95"].set("0.00 ms")
-        self.vars["p99"].set("0.00 ms")
 
     def update_metrics(self, metrics):
         self.vars["total"].set(str(metrics["total"]))
@@ -84,7 +84,7 @@ class MetricPanel(ttk.LabelFrame):
         self.vars["success_rate"].set(format_rate(metrics["success_rate"]))
         self.vars["qps"].set(f"{metrics['qps']:.2f}")
         self.vars["tps"].set(f"{metrics['tps']:.2f}")
+        self.vars["avg_first_frame"].set(format_ms(metrics["avg_first_frame_latency"]))
+        self.vars["first_frame_p95"].set(format_ms(metrics["p95_first_frame_latency"]))
         self.vars["avg_latency"].set(format_ms(metrics["avg_latency"]))
-        self.vars["p90"].set(format_ms(metrics["p90_latency"]))
         self.vars["p95"].set(format_ms(metrics["p95_latency"]))
-        self.vars["p99"].set(format_ms(metrics["p99_latency"]))

@@ -1,0 +1,463 @@
+[
+  {
+    "header": {
+      "chatId": "eval-chat-11",
+      "deviceId": "demo-device",
+      "round": 1,
+      "accountId": "783388711313477",
+      "traceId": "fc52c210-fefa-494a-9709-5c947afa36b8",
+      "deviceModel": "demo-device-model",
+      "languageCode": "zh",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "currentTimeZone": "UTC",
+      "roundId": "eval-round-11",
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "body": {
+      "text": "我之前问打开life log，助手咋一步步回复的？",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "messages": [
+        {
+          "role": "user",
+          "content": "我之前问打开life log，助手咋一步步回复的？"
+        }
+      ],
+      "referConfig": {
+        "global": false,
+        "items": [
+          {
+            "type": "session",
+            "selectType": "multiple",
+            "selectIdList": [
+              "dffd23255028e4f06f15acef8a535241",
+              "eaaf460dd40e4f24998984171f9bdc49",
+              "6e5996f2d5b54bc88794e20b5ba50a39",
+              "ac773c12e9c54132bf8683b10fa6f64d",
+              "69f441c40000400087d996c6b7344a09"
+            ]
+          }
+        ]
+      },
+      "msgSource": "phone",
+      "model": "Rayneo-AI",
+      "fileUrlList": [],
+      "filePathList": []
+    }
+  },
+  {
+    "header": {
+      "chatId": "eval-chat-32",
+      "deviceId": "demo-device",
+      "round": 1,
+      "accountId": "804570673967173",
+      "traceId": "7f7b9d7d-104e-4740-9679-e5c6bd401585",
+      "deviceModel": "demo-device-model",
+      "languageCode": "zh",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "currentTimeZone": "UTC",
+      "roundId": "eval-round-32",
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "body": {
+      "text": "我之前说要要要的那个事是啥来着？",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "messages": [
+        {
+          "role": "user",
+          "content": "我之前说要要要的那个事是啥来着？"
+        }
+      ],
+      "referConfig": {
+        "global": false,
+        "items": [
+          {
+            "type": "session",
+            "selectType": "all",
+            "selectIdList": []
+          }
+        ]
+      },
+      "msgSource": "phone",
+      "model": "Rayneo-AI",
+      "fileUrlList": [],
+      "filePathList": []
+    }
+  },
+  {
+    "header": {
+      "chatId": "eval-chat-3",
+      "deviceId": "demo-device",
+      "round": 1,
+      "accountId": "803098357059653",
+      "traceId": "85577f08-0bcd-460c-84d2-0cb7f8c96c7e",
+      "deviceModel": "demo-device-model",
+      "languageCode": "zh",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "currentTimeZone": "UTC",
+      "roundId": "eval-round-3",
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "body": {
+      "text": "我之前让助手干啥来着？",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "messages": [
+        {
+          "role": "user",
+          "content": "我之前让助手干啥来着？"
+        }
+      ],
+      "referConfig": {
+        "global": true,
+        "items": [
+          {
+            "type": "session",
+            "selectType": "all",
+            "selectIdList": []
+          }
+        ]
+      },
+      "msgSource": "phone",
+      "model": "Rayneo-AI",
+      "fileUrlList": [],
+      "filePathList": []
+    }
+  },
+  {
+    "header": {
+      "chatId": "eval-chat-49",
+      "deviceId": "demo-device",
+      "round": 1,
+      "accountId": "790816834556037",
+      "traceId": "492e8259-632b-45b7-a951-70309a41f1c4",
+      "deviceModel": "demo-device-model",
+      "languageCode": "zh",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "currentTimeZone": "UTC",
+      "roundId": "eval-round-49",
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "body": {
+      "text": "那天我为啥想起雷鸟来着？",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "messages": [
+        {
+          "role": "user",
+          "content": "那天我为啥想起雷鸟来着？"
+        }
+      ],
+      "referConfig": {
+        "global": false,
+        "items": [
+          {
+            "type": "session",
+            "selectType": "multiple",
+            "selectIdList": [
+              "13992dc0a8352876f1a24e824b4537bf"
+            ]
+          }
+        ]
+      },
+      "msgSource": "phone",
+      "model": "Rayneo-AI",
+      "fileUrlList": [],
+      "filePathList": []
+    }
+  },
+  {
+    "header": {
+      "chatId": "eval-chat-66",
+      "deviceId": "demo-device",
+      "round": 1,
+      "accountId": "794322573324421",
+      "traceId": "738bd155-d446-486e-88f9-8328825d2950",
+      "deviceModel": "demo-device-model",
+      "languageCode": "zh",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "currentTimeZone": "UTC",
+      "roundId": "eval-round-66",
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "body": {
+      "text": "我那天回忆父亲白事时具体想到了什么？",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "messages": [
+        {
+          "role": "user",
+          "content": "我那天回忆父亲白事时具体想到了什么？"
+        }
+      ],
+      "referConfig": {
+        "global": false,
+        "items": [
+          {
+            "type": "session",
+            "selectType": "multiple",
+            "selectIdList": [
+              "ee12a6ca568641009fed827c4c31e633",
+              "9435266296344046bbd0916076bbbee3"
+            ]
+          }
+        ]
+      },
+      "msgSource": "phone",
+      "model": "Rayneo-AI",
+      "fileUrlList": [],
+      "filePathList": []
+    }
+  },
+  {
+    "header": {
+      "chatId": "eval-chat-64",
+      "deviceId": "demo-device",
+      "round": 1,
+      "accountId": "797097797767237",
+      "traceId": "70e0b6e7-e93a-4df9-a136-50eb22ed7a4b",
+      "deviceModel": "demo-device-model",
+      "languageCode": "zh",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "currentTimeZone": "UTC",
+      "roundId": "eval-round-64",
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "body": {
+      "text": "我那天解释App Store区域判断逻辑时具体说了什么？",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "messages": [
+        {
+          "role": "user",
+          "content": "我那天解释App Store区域判断逻辑时具体说了什么？"
+        }
+      ],
+      "referConfig": {
+        "global": true,
+        "items": [
+          {
+            "type": "session",
+            "selectType": "all",
+            "selectIdList": []
+          }
+        ]
+      },
+      "msgSource": "phone",
+      "model": "Rayneo-AI",
+      "fileUrlList": [],
+      "filePathList": []
+    }
+  },
+  {
+    "header": {
+      "chatId": "eval-chat-61",
+      "deviceId": "demo-device",
+      "round": 1,
+      "accountId": "797532628299845",
+      "traceId": "45d59459-5d1e-4c2b-a4e5-253a214e29ee",
+      "deviceModel": "demo-device-model",
+      "languageCode": "zh",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "currentTimeZone": "UTC",
+      "roundId": "eval-round-61",
+      "latitude": 0.0,
+      "longitude": 0.0
+    },
+    "body": {
+      "text": "我那天讲雷鸟眼镜时具体说了哪些功能？",
+      "currentDateTime": "2026-03-23T10:00:00Z",
+      "currentLocation": "unknown_location",
+      "messages": [
+        {
+          "role": "user",
+          "content": "我那天讲雷鸟眼镜时具体说了哪些功能？"
+        }
+      ],
+      "referConfig": {
+        "global": false,
+        "items": [
+          {
+            "type": "session",
+            "selectType": "all",
+            "selectIdList": []
+          }
+        ]
+      },
+      "msgSource": "phone",
+      "model": "Rayneo-AI",
+      "fileUrlList": [],
+      "filePathList": []
+    }
+  },
+  {
+    "header": {
+      "chatId": "b6f6fc2b-d1c9-4da9-bd90-1d03e6b075a0",
+      "deviceId": "13",
+      "roundId": "demo-round-1",
+      "round": 0,
+      "accountId": "804520074698821",
+      "traceId": "",
+      "deviceModel": "",
+      "latitude": 0.0,
+      "longitude": 0.0,
+      "languageCode": "zh-CN",
+      "currentDateTime": "2026-05-26T17:32:58.149055",
+      "currentLocation": "",
+      "currentTimeZone": "Asia/Shanghai"
+    },
+    "body": {
+      "text": "总结录音",
+      "currentDateTime": "2026-05-26T17:32:58.149055",
+      "currentLocation": "",
+      "messages": [
+        {
+          "role": "user",
+          "content": "总结录音"
+        }
+      ],
+      "referConfig": {
+        "global": false,
+        "items": [
+          {
+            "type": "session",
+            "selectType": "multiple",
+            "selectIdList": ["b93c2685cb4541df7c6e54c6633194b9"]
+          },
+          {
+            "type": "topic",
+            "selectType": "multiple",
+            "selectIdList": []
+          },
+          {
+            "type": "conversation",
+            "selectType": "multiple",
+            "selectIdList": []
+          }
+        ]
+      },
+      "msgSource": "phone",
+      "model": "RAYNEO_AI",
+      "fileUrlList": [],
+      "filePathList": []
+    }
+  },
+  {
+    "header": {
+      "chatId": "6e9edb73-cc50-4d8c-87d9-c573eb541941",
+      "deviceId": "13",
+      "roundId": "demo-round-2",
+      "round": 0,
+      "accountId": "803248029098053",
+      "traceId": "",
+      "deviceModel": "",
+      "latitude": 0.0,
+      "longitude": 0.0,
+      "languageCode": "zh-CN",
+      "currentDateTime": "2026-05-27T20:25:00.555254",
+      "currentLocation": "",
+      "currentTimeZone": "Asia/Shanghai"
+    },
+    "body": {
+      "text": "我都聊了啥",
+      "currentDateTime": "2026-05-27T20:25:00.555254",
+      "currentLocation": "",
+      "messages": [
+        {
+          "role": "user",
+          "content": "我都聊了啥"
+        }
+      ],
+      "referConfig": {
+        "global": false,
+        "items": [
+          {
+            "type": "session",
+            "selectType": "multiple",
+            "selectIdList": ["630788d1d6bb43ceb35f654a8ca1b99e"]
+          },
+          {
+            "type": "topic",
+            "selectType": "multiple",
+            "selectIdList": []
+          },
+          {
+            "type": "conversation",
+            "selectType": "multiple",
+            "selectIdList": []
+          }
+        ]
+      },
+      "msgSource": "phone",
+      "model": "RAYNEO_AI",
+      "fileUrlList": [],
+      "filePathList": []
+    }
+  },
+  {
+    "header": {
+      "chatId": "4177cb63-cc7a-459f-9c41-507f72bbb0ee",
+      "deviceId": "13",
+      "roundId": "demo-round-3",
+      "round": 0,
+      "accountId": "795390166147141",
+      "traceId": "",
+      "deviceModel": "",
+      "latitude": 0.0,
+      "longitude": 0.0,
+      "languageCode": "zh-CN",
+      "currentDateTime": "2026-05-28T18:43:53.991270",
+      "currentLocation": "",
+      "currentTimeZone": "Asia/Shanghai"
+    },
+    "body": {
+      "text": "总结",
+      "currentDateTime": "2026-05-28T18:43:53.991270",
+      "currentLocation": "",
+      "messages": [
+        {
+          "role": "user",
+          "content": "总结"
+        }
+      ],
+      "referConfig": {
+        "global": false,
+        "items": [
+          {
+            "type": "session",
+            "selectType": "multiple",
+            "selectIdList": ["ceffd9c17e20436986bfe735efb8ab6e"]
+          },
+          {
+            "type": "topic",
+            "selectType": "multiple",
+            "selectIdList": []
+          },
+          {
+            "type": "conversation",
+            "selectType": "multiple",
+            "selectIdList": []
+          }
+        ]
+      },
+      "msgSource": "phone",
+      "model": "RAYNEO_AI",
+      "fileUrlList": [],
+      "filePathList": []
+    }
+  }
+]

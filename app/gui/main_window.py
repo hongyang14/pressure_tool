@@ -94,7 +94,7 @@ class PressureTestMainWindow:
         if self.runner:
             self.runner.stop()
             self.stop_btn.config(text="停止中...", state=tk.DISABLED)
-            self.log_panel.info("收到停止信号，正在等待运行中请求结束...")
+            self.log_panel.info("收到停止信号，正在取消运行中请求并生成已完成结果报告...")
 
     def _on_log(self, message):
         self.ui_queue.put({
@@ -173,9 +173,8 @@ class PressureTestMainWindow:
                     self.log_panel.info(f"成功率: {metrics['success_rate']:.2f}%")
                     self.log_panel.info(f"QPS: {metrics['qps']:.2f}")
                     self.log_panel.info(f"TPS: {metrics['tps']:.2f}")
-                    self.log_panel.info(f"P90: {metrics['p90_latency']:.2f} ms")
-                    self.log_panel.info(f"P95: {metrics['p95_latency']:.2f} ms")
-                    self.log_panel.info(f"P99: {metrics['p99_latency']:.2f} ms")
+                    self.log_panel.info(f"首帧 P95: {metrics['p95_first_frame_latency']:.2f} ms")
+                    self.log_panel.info(f"完整耗时 P95: {metrics['p95_latency']:.2f} ms")
                     self.log_panel.info(f"HTML 报告: {report_paths['html_path']}")
                     self.log_panel.info(f"CSV 明细: {report_paths['csv_path']}")
                     self.log_panel.info(f"JSON 原始结果: {report_paths['json_path']}")
@@ -186,9 +185,8 @@ class PressureTestMainWindow:
                         f"成功率：{metrics['success_rate']:.2f}%\n"
                         f"QPS：{metrics['qps']:.2f}\n"
                         f"TPS：{metrics['tps']:.2f}\n"
-                        f"P90：{metrics['p90_latency']:.2f} ms\n"
-                        f"P95：{metrics['p95_latency']:.2f} ms\n"
-                        f"P99：{metrics['p99_latency']:.2f} ms\n\n"
+                        f"首帧 P95：{metrics['p95_first_frame_latency']:.2f} ms\n"
+                        f"完整耗时 P95：{metrics['p95_latency']:.2f} ms\n\n"
                         f"报告路径：\n{report_paths['html_path']}"
                     )
 

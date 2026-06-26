@@ -9,6 +9,7 @@ def write_csv_report(results, csv_path):
         "status_code",
         "error",
         "latency_ms",
+        "first_frame_latency_ms",
         "response_bytes",
         "start_time",
         "end_time",

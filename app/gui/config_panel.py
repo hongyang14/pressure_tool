@@ -7,6 +7,7 @@ from app.config.default_config import (
     DEFAULT_CONCURRENCY,
     DEFAULT_TOTAL_REQUESTS,
     DEFAULT_TIMEOUT,
+    DEFAULT_FIRST_FRAME_TIMEOUT,
     DEFAULT_RAMP_UP,
     DEFAULT_RUN_MODE,
     DEFAULT_DURATION_SECONDS,
@@ -43,6 +44,7 @@ class ConfigPanel(ttk.LabelFrame):
         self.concurrency_var = tk.StringVar(value=str(DEFAULT_CONCURRENCY))
         self.total_var = tk.StringVar(value=str(DEFAULT_TOTAL_REQUESTS))
         self.timeout_var = tk.StringVar(value=str(DEFAULT_TIMEOUT))
+        self.first_frame_timeout_var = tk.StringVar(value=str(DEFAULT_FIRST_FRAME_TIMEOUT))
         self.ramp_up_var = tk.StringVar(value=str(DEFAULT_RAMP_UP))
         self.success_keyword_var = tk.StringVar(value=DEFAULT_SUCCESS_KEYWORD)
         self.output_dir_var = tk.StringVar(value=DEFAULT_OUTPUT_DIR)
@@ -111,23 +113,28 @@ class ConfigPanel(ttk.LabelFrame):
         self.total_entry = ttk.Entry(self, textvariable=self.total_var, width=12)
         self.total_entry.grid(row=1, column=5, sticky="w", padx=5)
 
-        ttk.Label(self, text="超时时间/s").grid(row=2, column=0, sticky="w")
-        ttk.Entry(self, textvariable=self.timeout_var, width=12).grid(
+        ttk.Label(self, text="首帧超时/s").grid(row=2, column=0, sticky="w")
+        ttk.Entry(self, textvariable=self.first_frame_timeout_var, width=12).grid(
             row=2, column=1, sticky="w", padx=5, pady=4
         )
 
-        ttk.Label(self, text="Ramp-up/s").grid(row=2, column=2, sticky="w")
-        ttk.Entry(self, textvariable=self.ramp_up_var, width=12).grid(
+        ttk.Label(self, text="完整超时/s").grid(row=2, column=2, sticky="w")
+        ttk.Entry(self, textvariable=self.timeout_var, width=12).grid(
             row=2, column=3, sticky="w", padx=5
         )
 
-        ttk.Label(self, text="成功关键字").grid(row=2, column=4, sticky="w")
-        ttk.Entry(self, textvariable=self.success_keyword_var, width=20).grid(
+        ttk.Label(self, text="Ramp-up/s").grid(row=2, column=4, sticky="w")
+        ttk.Entry(self, textvariable=self.ramp_up_var, width=12).grid(
             row=2, column=5, sticky="w", padx=5
         )
 
+        ttk.Label(self, text="成功关键字").grid(row=3, column=4, sticky="w")
+        ttk.Entry(self, textvariable=self.success_keyword_var, width=20).grid(
+            row=3, column=5, sticky="w", padx=5
+        )
+
         sim_frame = ttk.LabelFrame(self, text="用户模拟", padding=8)
-        sim_frame.grid(row=3, column=0, columnspan=6, sticky="ew", pady=4)
+        sim_frame.grid(row=4, column=0, columnspan=6, sticky="ew", pady=4)
         for i in range(6):
             sim_frame.columnconfigure(i, weight=1)
 
@@ -182,13 +189,13 @@ class ConfigPanel(ttk.LabelFrame):
             row=4, column=5, sticky="w", padx=5, pady=(8, 0)
         )
 
-        ttk.Label(self, text="报告输出目录").grid(row=4, column=0, sticky="w")
+        ttk.Label(self, text="报告输出目录").grid(row=5, column=0, sticky="w")
         ttk.Entry(self, textvariable=self.output_dir_var).grid(
-            row=4, column=1, columnspan=3, sticky="ew", padx=5, pady=4
+            row=5, column=1, columnspan=3, sticky="ew", padx=5, pady=4
         )
 
         report_btn_frame = ttk.Frame(self)
-        report_btn_frame.grid(row=4, column=4, columnspan=2, sticky="e", padx=5)
+        report_btn_frame.grid(row=5, column=4, columnspan=2, sticky="e", padx=5)
 
         ttk.Button(report_btn_frame, text="打开文件夹", command=self.open_report_folder).pack(
             side=tk.LEFT, padx=2
@@ -198,7 +205,7 @@ class ConfigPanel(ttk.LabelFrame):
         )
 
         payload_frame = ttk.Frame(self)
-        payload_frame.grid(row=5, column=0, columnspan=6, sticky="nsew", pady=8)
+        payload_frame.grid(row=6, column=0, columnspan=6, sticky="nsew", pady=8)
 
         payload_frame.columnconfigure(0, weight=1)
         payload_frame.columnconfigure(1, weight=1)
@@ -344,6 +351,7 @@ class ConfigPanel(ttk.LabelFrame):
             "concurrency": self.concurrency_var.get(),
             "total_requests": self.total_var.get(),
             "timeout": self.timeout_var.get(),
+            "first_frame_timeout": self.first_frame_timeout_var.get(),
             "ramp_up": self.ramp_up_var.get(),
             "success_keyword": self.success_keyword_var.get(),
             "output_dir": self.output_dir_var.get(),

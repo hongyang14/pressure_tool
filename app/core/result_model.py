@@ -9,6 +9,7 @@ class RequestResult:
     status_code: Optional[int]
     error: str
     latency_ms: float
+    first_frame_latency_ms: float
     response_bytes: int
     start_time: str
     end_time: str

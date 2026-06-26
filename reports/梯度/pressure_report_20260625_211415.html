@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<title>算法接口压测报告</title>
+<style>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+    background: #f6f7f9;
+    padding: 24px;
+    color: #222;
+}
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+.metric {
+    background: #f7f8fa;
+    border-radius: 8px;
+    padding: 12px;
+}
+.metric .name {
+    color: #666;
+    font-size: 13px;
+}
+.metric .value {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+.success {
+    color: #1f9d55;
+}
+.fail {
+    color: #d93025;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+}
+th, td {
+    border: 1px solid #e5e7eb;
+    padding: 8px 10px;
+    font-size: 14px;
+    text-align: left;
+}
+th {
+    background: #f0f2f5;
+}
+a {
+    color: #2563eb;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="card">
+    <h1>算法接口压测报告</h1>
+    <p>生成时间：2026-06-25 21:14:15</p>
+    <p>
+        CSV 明细：
+        <a href="./pressure_report_20260625_211415_detail.csv">pressure_report_20260625_211415_detail.csv</a>
+        &nbsp;&nbsp;
+        JSON 原始结果：
+        <a href="./pressure_report_20260625_211415_raw.json">pressure_report_20260625_211415_raw.json</a>
+    </p>
+</div>
+
+<div class="card">
+    <h2>一、压测配置</h2>
+    <table>
+        <tr><th>配置项</th><th>值</th></tr>
+        <tr><td>URL</td><td>http://47.94.77.104:8004</td></tr>
+        <tr><td>Method</td><td>GRPC</td></tr>
+        <tr><td>并发数</td><td>50</td></tr>
+        <tr><td>压测模式</td><td>固定请求数</td></tr>
+        <tr><td>总请求数</td><td>500</td></tr>
+        <tr><td>持续时长</td><td>不适用</td></tr>
+        <tr><td>思考时间</td><td>未启用</td></tr>
+        <tr><td>Body 数据文件</td><td>D:\PythonProject\api_pressure_tool\body_data\test_intend_true.json</td></tr>
+        <tr><td>Proto 文件</td><td>D:\PythonProject\api_pressure_tool\proto_files\intend.proto</td></tr>
+        <tr><td>首帧超时</td><td>10.0 秒</td></tr>
+        <tr><td>完整超时</td><td>30.0 秒</td></tr>
+        <tr><td>Ramp-up</td><td>15.0 秒</td></tr>
+        <tr><td>成功关键字</td><td></td></tr>
+    </table>
+</div>
+
+<div class="card">
+    <h2>二、核心指标</h2>
+    <div class="metric-grid">
+        <div class="metric"><div class="name">总请求数</div><div class="value">500</div></div>
+        <div class="metric"><div class="name">成功数</div><div class="value success">180</div></div>
+        <div class="metric"><div class="name">失败数</div><div class="value fail">320</div></div>
+        <div class="metric"><div class="name">成功率</div><div class="value">36.00%</div></div>
+
+        <div class="metric"><div class="name">总耗时</div><div class="value">83.89s</div></div>
+        <div class="metric"><div class="name">QPS</div><div class="value">5.96</div></div>
+        <div class="metric"><div class="name">成功 QPS</div><div class="value">2.15</div></div>
+        <div class="metric"><div class="name">TPS</div><div class="value">2.15</div></div>
+        <div class="metric"><div class="name">平均响应大小</div><div class="value">379.6 B</div></div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>三、耗时指标</h2>
+    <table>
+        <tr><th>指标</th><th>值</th></tr>
+        <tr><td>平均首帧时延</td><td>1241.58 ms</td></tr>
+        <tr><td>成功请求平均首帧时延</td><td>1241.58 ms</td></tr>
+        <tr><td>最小首帧时延</td><td>284.61 ms</td></tr>
+        <tr><td>最大首帧时延</td><td>2790.05 ms</td></tr>
+        <tr><td>首帧 P50</td><td>1178.68 ms</td></tr>
+        <tr><td>首帧 P90</td><td>2045.02 ms</td></tr>
+        <tr><td>首帧 P95</td><td>2301.78 ms</td></tr>
+        <tr><td>首帧 P99</td><td>2558.05 ms</td></tr>
+    </table>
+    <h3>完整请求 / 完整流耗时</h3>
+    <table>
+        <tr><th>指标</th><th>值</th></tr>
+        <tr><td>平均完整耗时</td><td>7290.37 ms</td></tr>
+        <tr><td>成功请求平均完整耗时</td><td>1443.95 ms</td></tr>
+        <tr><td>最小完整耗时</td><td>290.80 ms</td></tr>
+        <tr><td>最大完整耗时</td><td>30023.28 ms</td></tr>
+        <tr><td>完整耗时 P50</td><td>10012.10 ms</td></tr>
+        <tr><td>完整耗时 P90</td><td>10021.68 ms</td></tr>
+        <tr><td>完整耗时 P95</td><td>10026.14 ms</td></tr>
+        <tr><td>完整耗时 P99</td><td>30018.64 ms</td></tr>
+    </table>
+</div>
+
+<div class="card">
+    <h3>每秒完成请求数</h3>
+<svg width="900" height="260" style="background:#fff;border:1px solid #eee;">
+<line x1="50" y1="30" x2="50" y2="210" stroke="#333"/>
+<line x1="50" y1="210" x2="880" y2="210" stroke="#333"/>
+<rect x="56.0" y="183.0" width="8.1" height="27.0" fill="#4e79a7"/>
+<text x="60.1" y="179.0" font-size="10" text-anchor="middle">3</text>
+<text x="60.1" y="226" font-size="10" text-anchor="middle">0</text>
+<rect x="70.1" y="174.0" width="8.1" height="36.0" fill="#4e79a7"/>
+<text x="74.2" y="170.0" font-size="10" text-anchor="middle">4</text>
+<text x="74.2" y="226" font-size="10" text-anchor="middle">1</text>
+<rect x="84.3" y="129.0" width="8.1" height="81.0" fill="#4e79a7"/>
+<text x="88.3" y="125.0" font-size="10" text-anchor="middle">9</text>
+<text x="88.3" y="226" font-size="10" text-anchor="middle">2</text>
+<rect x="98.4" y="93.0" width="8.1" height="117.0" fill="#4e79a7"/>
+<text x="102.5" y="89.0" font-size="10" text-anchor="middle">13</text>
+<text x="102.5" y="226" font-size="10" text-anchor="middle">3</text>
+<rect x="112.6" y="111.0" width="8.1" height="99.0" fill="#4e79a7"/>
+<text x="116.6" y="107.0" font-size="10" text-anchor="middle">11</text>
+<text x="116.6" y="226" font-size="10" text-anchor="middle">4</text>
+<rect x="126.7" y="75.0" width="8.1" height="135.0" fill="#4e79a7"/>
+<text x="130.8" y="71.0" font-size="10" text-anchor="middle">15</text>
+<text x="130.8" y="226" font-size="10" text-anchor="middle">5</text>
+<rect x="140.8" y="93.0" width="8.1" height="117.0" fill="#4e79a7"/>
+<text x="144.9" y="89.0" font-size="10" text-anchor="middle">13</text>
+<text x="144.9" y="226" font-size="10" text-anchor="middle">6</text>
+<rect x="155.0" y="75.0" width="8.1" height="135.0" fill="#4e79a7"/>
+<text x="159.0" y="71.0" font-size="10" text-anchor="middle">15</text>
+<text x="159.0" y="226" font-size="10" text-anchor="middle">7</text>
+<rect x="169.1" y="48.0" width="8.1" height="162.0" fill="#4e79a7"/>
+<text x="173.2" y="44.0" font-size="10" text-anchor="middle">18</text>
+<text x="173.2" y="226" font-size="10" text-anchor="middle">8</text>
+<rect x="183.2" y="102.0" width="8.1" height="108.0" fill="#4e79a7"/>
+<text x="187.3" y="98.0" font-size="10" text-anchor="middle">12</text>
+<text x="187.3" y="226" font-size="10" text-anchor="middle">9</text>
+<rect x="197.4" y="30.0" width="8.1" height="180.0" fill="#4e79a7"/>
+<text x="201.4" y="26.0" font-size="10" text-anchor="middle">20</text>
+<text x="201.4" y="226" font-size="10" text-anchor="middle">10</text>
+<rect x="211.5" y="102.0" width="8.1" height="108.0" fill="#4e79a7"/>
+<text x="215.6" y="98.0" font-size="10" text-anchor="middle">12</text>
+<text x="215.6" y="226" font-size="10" text-anchor="middle">11</text>
+<rect x="225.7" y="57.0" width="8.1" height="153.0" fill="#4e79a7"/>
+<text x="229.7" y="53.0" font-size="10" text-anchor="middle">17</text>
+<text x="229.7" y="226" font-size="10" text-anchor="middle">12</text>
+<rect x="239.8" y="93.0" width="8.1" height="117.0" fill="#4e79a7"/>
+<text x="243.9" y="89.0" font-size="10" text-anchor="middle">13</text>
+<text x="243.9" y="226" font-size="10" text-anchor="middle">13</text>
+<rect x="253.9" y="165.0" width="8.1" height="45.0" fill="#4e79a7"/>
+<text x="258.0" y="161.0" font-size="10" text-anchor="middle">5</text>
+<text x="258.0" y="226" font-size="10" text-anchor="middle">14</text>
+<rect x="268.1" y="174.0" width="8.1" height="36.0" fill="#4e79a7"/>
+<text x="272.1" y="170.0" font-size="10" text-anchor="middle">4</text>
+<text x="272.1" y="226" font-size="10" text-anchor="middle">21</text>
+<rect x="282.2" y="102.0" width="8.1" height="108.0" fill="#4e79a7"/>
+<text x="286.3" y="98.0" font-size="10" text-anchor="middle">12</text>
+<text x="286.3" y="226" font-size="10" text-anchor="middle">22</text>
+<rect x="296.3" y="66.0" width="8.1" height="144.0" fill="#4e79a7"/>
+<text x="300.4" y="62.0" font-size="10" text-anchor="middle">16</text>
+<text x="300.4" y="226" font-size="10" text-anchor="middle">23</text>
+<rect x="310.5" y="138.0" width="8.1" height="72.0" fill="#4e79a7"/>
+<text x="314.6" y="134.0" font-size="10" text-anchor="middle">8</text>
+<text x="314.6" y="226" font-size="10" text-anchor="middle">24</text>
+<rect x="324.6" y="201.0" width="8.1" height="9.0" fill="#4e79a7"/>
+<text x="328.7" y="197.0" font-size="10" text-anchor="middle">1</text>
+<text x="328.7" y="226" font-size="10" text-anchor="middle">25</text>
+<rect x="338.8" y="174.0" width="8.1" height="36.0" fill="#4e79a7"/>
+<text x="342.8" y="170.0" font-size="10" text-anchor="middle">4</text>
+<text x="342.8" y="226" font-size="10" text-anchor="middle">31</text>
+<rect x="352.9" y="102.0" width="8.1" height="108.0" fill="#4e79a7"/>
+<text x="357.0" y="98.0" font-size="10" text-anchor="middle">12</text>
+<text x="357.0" y="226" font-size="10" text-anchor="middle">32</text>
+<rect x="367.0" y="66.0" width="8.1" height="144.0" fill="#4e79a7"/>
+<text x="371.1" y="62.0" font-size="10" text-anchor="middle">16</text>
+<text x="371.1" y="226" font-size="10" text-anchor="middle">33</text>
+<rect x="381.2" y="138.0" width="8.1" height="72.0" fill="#4e79a7"/>
+<text x="385.2" y="134.0" font-size="10" text-anchor="middle">8</text>
+<text x="385.2" y="226" font-size="10" text-anchor="middle">34</text>
+<rect x="395.3" y="201.0" width="8.1" height="9.0" fill="#4e79a7"/>
+<text x="399.4" y="197.0" font-size="10" text-anchor="middle">1</text>
+<text x="399.4" y="226" font-size="10" text-anchor="middle">35</text>
+<rect x="409.4" y="201.0" width="8.1" height="9.0" fill="#4e79a7"/>
+<text x="413.5" y="197.0" font-size="10" text-anchor="middle">1</text>
+<text x="413.5" y="226" font-size="10" text-anchor="middle">39</text>
+<rect x="423.6" y="156.0" width="8.1" height="54.0" fill="#4e79a7"/>
+<text x="427.7" y="152.0" font-size="10" text-anchor="middle">6</text>
+<text x="427.7" y="226" font-size="10" text-anchor="middle">40</text>
+<rect x="437.7" y="156.0" width="8.1" height="54.0" fill="#4e79a7"/>
+<text x="441.8" y="152.0" font-size="10" text-anchor="middle">6</text>
+<text x="441.8" y="226" font-size="10" text-anchor="middle">41</text>
+<rect x="451.9" y="111.0" width="8.1" height="99.0" fill="#4e79a7"/>
+<text x="455.9" y="107.0" font-size="10" text-anchor="middle">11</text>
+<text x="455.9" y="226" font-size="10" text-anchor="middle">42</text>
+<rect x="466.0" y="57.0" width="8.1" height="153.0" fill="#4e79a7"/>
+<text x="470.1" y="53.0" font-size="10" text-anchor="middle">17</text>
+<text x="470.1" y="226" font-size="10" text-anchor="middle">43</text>
+<rect x="480.1" y="138.0" width="8.1" height="72.0" fill="#4e79a7"/>
+<text x="484.2" y="134.0" font-size="10" text-anchor="middle">8</text>
+<text x="484.2" y="226" font-size="10" text-anchor="middle">44</text>
+<rect x="494.3" y="201.0" width="8.1" height="9.0" fill="#4e79a7"/>
+<text x="498.3" y="197.0" font-size="10" text-anchor="middle">1</text>
+<text x="498.3" y="226" font-size="10" text-anchor="middle">45</text>
+<rect x="508.4" y="201.0" width="8.1" height="9.0" fill="#4e79a7"/>
+<text x="512.5" y="197.0" font-size="10" text-anchor="middle">1</text>
+<text x="512.5" y="226" font-size="10" text-anchor="middle">49</text>
+<rect x="522.6" y="156.0" width="8.1" height="54.0" fill="#4e79a7"/>
+<text x="526.6" y="152.0" font-size="10" text-anchor="middle">6</text>
+<text x="526.6" y="226" font-size="10" text-anchor="middle">50</text>
+<rect x="536.7" y="156.0" width="8.1" height="54.0" fill="#4e79a7"/>
+<text x="540.8" y="152.0" font-size="10" text-anchor="middle">6</text>
+<text x="540.8" y="226" font-size="10" text-anchor="middle">51</text>
+<rect x="550.8" y="111.0" width="8.1" height="99.0" fill="#4e79a7"/>
+<text x="554.9" y="107.0" font-size="10" text-anchor="middle">11</text>
+<text x="554.9" y="226" font-size="10" text-anchor="middle">52</text>
+<rect x="565.0" y="57.0" width="8.1" height="153.0" fill="#4e79a7"/>
+<text x="569.0" y="53.0" font-size="10" text-anchor="middle">17</text>
+<text x="569.0" y="226" font-size="10" text-anchor="middle">53</text>
+<rect x="579.1" y="138.0" width="8.1" height="72.0" fill="#4e79a7"/>
+<text x="583.2" y="134.0" font-size="10" text-anchor="middle">8</text>
+<text x="583.2" y="226" font-size="10" text-anchor="middle">54</text>
+<rect x="593.2" y="201.0" width="8.1" height="9.0" fill="#4e79a7"/>
+<text x="597.3" y="197.0" font-size="10" text-anchor="middle">1</text>
+<text x="597.3" y="226" font-size="10" text-anchor="middle">55</text>
+<rect x="607.4" y="201.0" width="8.1" height="9.0" fill="#4e79a7"/>
+<text x="611.4" y="197.0" font-size="10" text-anchor="middle">1</text>
+<text x="611.4" y="226" font-size="10" text-anchor="middle">59</text>
+<rect x="621.5" y="156.0" width="8.1" height="54.0" fill="#4e79a7"/>
+<text x="625.6" y="152.0" font-size="10" text-anchor="middle">6</text>
+<text x="625.6" y="226" font-size="10" text-anchor="middle">60</text>
+<rect x="635.7" y="156.0" width="8.1" height="54.0" fill="#4e79a7"/>
+<text x="639.7" y="152.0" font-size="10" text-anchor="middle">6</text>
+<text x="639.7" y="226" font-size="10" text-anchor="middle">61</text>
+<rect x="649.8" y="111.0" width="8.1" height="99.0" fill="#4e79a7"/>
+<text x="653.9" y="107.0" font-size="10" text-anchor="middle">11</text>
+<text x="653.9" y="226" font-size="10" text-anchor="middle">62</text>
+<rect x="663.9" y="57.0" width="8.1" height="153.0" fill="#4e79a7"/>
+<text x="668.0" y="53.0" font-size="10" text-anchor="middle">17</text>
+<text x="668.0" y="226" font-size="10" text-anchor="middle">63</text>
+<rect x="678.1" y="138.0" width="8.1" height="72.0" fill="#4e79a7"/>
+<text x="682.1" y="134.0" font-size="10" text-anchor="middle">8</text>
+<text x="682.1" y="226" font-size="10" text-anchor="middle">64</text>
+<rect x="692.2" y="201.0" width="8.1" height="9.0" fill="#4e79a7"/>
+<text x="696.3" y="197.0" font-size="10" text-anchor="middle">1</text>
+<text x="696.3" y="226" font-size="10" text-anchor="middle">65</text>
+<rect x="706.3" y="201.0" width="8.1" height="9.0" fill="#4e79a7"/>
+<text x="710.4" y="197.0" font-size="10" text-anchor="middle">1</text>
+<text x="710.4" y="226" font-size="10" text-anchor="middle">69</text>
+<rect x="720.5" y="156.0" width="8.1" height="54.0" fill="#4e79a7"/>
+<text x="724.6" y="152.0" font-size="10" text-anchor="middle">6</text>
+<text x="724.6" y="226" font-size="10" text-anchor="middle">70</text>
+<rect x="734.6" y="156.0" width="8.1" height="54.0" fill="#4e79a7"/>
+<text x="738.7" y="152.0" font-size="10" text-anchor="middle">6</text>
+<text x="738.7" y="226" font-size="10" text-anchor="middle">71</text>
+<rect x="748.8" y="111.0" width="8.1" height="99.0" fill="#4e79a7"/>
+<text x="752.8" y="107.0" font-size="10" text-anchor="middle">11</text>
+<text x="752.8" y="226" font-size="10" text-anchor="middle">72</text>
+<rect x="762.9" y="57.0" width="8.1" height="153.0" fill="#4e79a7"/>
+<text x="767.0" y="53.0" font-size="10" text-anchor="middle">17</text>
+<text x="767.0" y="226" font-size="10" text-anchor="middle">73</text>
+<rect x="777.0" y="138.0" width="8.1" height="72.0" fill="#4e79a7"/>
+<text x="781.1" y="134.0" font-size="10" text-anchor="middle">8</text>
+<text x="781.1" y="226" font-size="10" text-anchor="middle">74</text>
+<rect x="791.2" y="201.0" width="8.1" height="9.0" fill="#4e79a7"/>
+<text x="795.2" y="197.0" font-size="10" text-anchor="middle">1</text>
+<text x="795.2" y="226" font-size="10" text-anchor="middle">75</text>
+<rect x="805.3" y="201.0" width="8.1" height="9.0" fill="#4e79a7"/>
+<text x="809.4" y="197.0" font-size="10" text-anchor="middle">1</text>
+<text x="809.4" y="226" font-size="10" text-anchor="middle">79</text>
+<rect x="819.4" y="165.0" width="8.1" height="45.0" fill="#4e79a7"/>
+<text x="823.5" y="161.0" font-size="10" text-anchor="middle">5</text>
+<text x="823.5" y="226" font-size="10" text-anchor="middle">80</text>
+<rect x="833.6" y="147.0" width="8.1" height="63.0" fill="#4e79a7"/>
+<text x="837.7" y="143.0" font-size="10" text-anchor="middle">7</text>
+<text x="837.7" y="226" font-size="10" text-anchor="middle">81</text>
+<rect x="847.7" y="111.0" width="8.1" height="99.0" fill="#4e79a7"/>
+<text x="851.8" y="107.0" font-size="10" text-anchor="middle">11</text>
+<text x="851.8" y="226" font-size="10" text-anchor="middle">82</text>
+<rect x="861.9" y="84.0" width="8.1" height="126.0" fill="#4e79a7"/>
+<text x="865.9" y="80.0" font-size="10" text-anchor="middle">14</text>
+<text x="865.9" y="226" font-size="10" text-anchor="middle">83</text>
+</svg>
+</div>
+
+<div class="card">
+    <h3>状态码分布</h3>
+<svg width="900" height="260" style="background:#fff;border:1px solid #eee;">
+<line x1="50" y1="30" x2="50" y2="210" stroke="#333"/>
+<line x1="50" y1="210" x2="880" y2="210" stroke="#333"/>
+<rect x="56.0" y="105.8" width="267.3" height="104.2" fill="#4e79a7"/>
+<text x="189.7" y="101.8" font-size="10" text-anchor="middle">180</text>
+<text x="189.7" y="226" font-size="10" text-anchor="middle">0</text>
+<rect x="329.3" y="30.0" width="267.3" height="180.0" fill="#4e79a7"/>
+<text x="463.0" y="26.0" font-size="10" text-anchor="middle">311</text>
+<text x="463.0" y="226" font-size="10" text-anchor="middle">EXCEPTION</text>
+<rect x="602.7" y="204.8" width="267.3" height="5.2" fill="#4e79a7"/>
+<text x="736.3" y="200.8" font-size="10" text-anchor="middle">9</text>
+<text x="736.3" y="226" font-size="10" text-anchor="middle">4</text>
+</svg>
+    <table>
+        <tr><th>状态码</th><th>数量</th></tr>
+        
+        <tr>
+            <td>0</td>
+            <td>180</td>
+        </tr>
+        
+        <tr>
+            <td>EXCEPTION</td>
+            <td>311</td>
+        </tr>
+        
+        <tr>
+            <td>4</td>
+            <td>9</td>
+        </tr>
+        
+    </table>
+</div>
+
+<div class="card">
+    <h2>四、错误分布</h2>
+    <table>
+        <tr><th>错误信息</th><th>数量</th></tr>
+        
+        <tr>
+            <td>FirstFrameTimeout: 10.0 seconds</td>
+            <td>311</td>
+        </tr>
+        
+        <tr>
+            <td>GrpcError: DEADLINE_EXCEEDED: Stream removed (Deadline Exceeded)</td>
+            <td>9</td>
+        </tr>
+        
+    </table>
+</div>
+
+
+<div class="card">
+    <h2>五、Body 数据执行结果</h2>
+    <table>
+        <tr>
+            <th>Body 数据</th>
+            <th>请求数</th>
+            <th>成功数</th>
+            <th>失败数</th>
+            <th>成功率</th>
+            <th>平均首帧时延</th>
+            <th>平均完整耗时</th>
+        </tr>
+        
+        <tr>
+            <td>Body #1</td>
+            <td>50</td>
+            <td class="success">15</td>
+            <td class="fail">35</td>
+            <td>30.00%</td>
+            <td>1820.27 ms</td>
+            <td>8945.00 ms</td>
+        </tr>
+        
+        <tr>
+            <td>Body #2</td>
+            <td>50</td>
+            <td class="success">21</td>
+            <td class="fail">29</td>
+            <td>42.00%</td>
+            <td>683.63 ms</td>
+            <td>6115.77 ms</td>
+        </tr>
+        
+        <tr>
+            <td>Body #3</td>
+            <td>50</td>
+            <td class="success">21</td>
+            <td class="fail">29</td>
+            <td>42.00%</td>
+            <td>662.15 ms</td>
+            <td>6102.86 ms</td>
+        </tr>
+        
+        <tr>
+            <td>Body #4</td>
+            <td>50</td>
+            <td class="success">21</td>
+            <td class="fail">29</td>
+            <td>42.00%</td>
+            <td>630.25 ms</td>
+            <td>6091.29 ms</td>
+        </tr>
+        
+        <tr>
+            <td>Body #5</td>
+            <td>50</td>
+            <td class="success">19</td>
+            <td class="fail">31</td>
+            <td>38.00%</td>
+            <td>1263.40 ms</td>
+            <td>6705.78 ms</td>
+        </tr>
+        
+        <tr>
+            <td>Body #6</td>
+            <td>50</td>
+            <td class="success">19</td>
+            <td class="fail">31</td>
+            <td>38.00%</td>
+            <td>1297.27 ms</td>
+            <td>6717.78 ms</td>
+        </tr>
+        
+        <tr>
+            <td>Body #7</td>
+            <td>50</td>
+            <td class="success">16</td>
+            <td class="fail">34</td>
+            <td>32.00%</td>
+            <td>1832.81 ms</td>
+            <td>7897.52 ms</td>
+        </tr>
+        
+        <tr>
+            <td>Body #8</td>
+            <td>50</td>
+            <td class="success">15</td>
+            <td class="fail">35</td>
+            <td>30.00%</td>
+            <td>1681.64 ms</td>
+            <td>8495.80 ms</td>
+        </tr>
+        
+        <tr>
+            <td>Body #9</td>
+            <td>50</td>
+            <td class="success">19</td>
+            <td class="fail">31</td>
+            <td>38.00%</td>
+            <td>1339.85 ms</td>
+            <td>6735.59 ms</td>
+        </tr>
+        
+        <tr>
+            <td>Body #10</td>
+            <td>50</td>
+            <td class="success">14</td>
+            <td class="fail">36</td>
+            <td>28.00%</td>
+            <td>1858.85 ms</td>
+            <td>9096.30 ms</td>
+        </tr>
+        
+    </table>
+</div>
+
+
+<div class="card">
+    <h2>六、结论建议</h2>
+    <ul>
+        <li>如果 P95 / P99 明显高于平均耗时，说明接口存在长尾延迟。</li>
+        <li>如果失败率较高，优先查看状态码分布和错误分布。</li>
+        <li>如果并发提升后 QPS 不再增长，说明服务端已接近容量瓶颈。</li>
+        <li>建议按照不同并发梯度多轮压测，例如 1、5、10、20、50、100。</li>
+    </ul>
+</div>
+
+</div>
+</body>
+</html>

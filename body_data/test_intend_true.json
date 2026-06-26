@@ -1,0 +1,282 @@
+[
+  {
+    "header": {
+      "dialogId": "101",
+      "deviceId": "93",
+      "roundId": "1001",
+      "round": 0,
+      "userId": "23",
+      "traceId": "",
+      "deviceModel": "RayNeo IO",
+      "latitude": 81,
+      "longitude": 63,
+      "locale": "",
+      "currentDateTime": "2025-07-26 11:49",
+      "physicalRegion": "深圳",
+      "physicalTimeZone": "Asia/Shanghai",
+      "timestamp": 4994850898275190,
+      "timeZone": "Asia/Shanghai",
+      "region": "西北",
+      "languageCode": "zh"
+    },
+    "body": {
+      "text": "明天深圳会下雨吗",
+      "model": "RAYNEO_AI",
+      "msgSource": "glasses"
+    }
+  },
+  {
+    "header": {
+      "dialogId": "102",
+      "deviceId": "93",
+      "roundId": "1002",
+      "round": 0,
+      "userId": "23",
+      "traceId": "",
+      "deviceModel": "RayNeo IO",
+      "latitude": 81,
+      "longitude": 63,
+      "locale": "",
+      "currentDateTime": "2025-07-26 11:49",
+      "physicalRegion": "深圳",
+      "physicalTimeZone": "Asia/Shanghai",
+      "timestamp": 4994850898275191,
+      "timeZone": "Asia/Shanghai",
+      "region": "西北",
+      "languageCode": "zh"
+    },
+    "body": {
+      "text": "倒计时5分钟",
+      "model": "RAYNEO_AI",
+      "msgSource": "glasses"
+    }
+  },
+  {
+    "header": {
+      "dialogId": "103",
+      "deviceId": "93",
+      "roundId": "1003",
+      "round": 0,
+      "userId": "23",
+      "traceId": "",
+      "deviceModel": "RayNeo IO",
+      "latitude": 81,
+      "longitude": 63,
+      "locale": "",
+      "currentDateTime": "2025-07-26 11:49",
+      "physicalRegion": "深圳",
+      "physicalTimeZone": "Asia/Shanghai",
+      "timestamp": 4994850898275192,
+      "timeZone": "Asia/Shanghai",
+      "region": "西北",
+      "languageCode": "zh"
+    },
+    "body": {
+      "text": "现在小雷眼镜的电量是多少",
+      "model": "RAYNEO_AI",
+      "msgSource": "glasses"
+    }
+  },
+  {
+    "header": {
+      "dialogId": "104",
+      "deviceId": "93",
+      "roundId": "1004",
+      "round": 0,
+      "userId": "23",
+      "traceId": "",
+      "deviceModel": "RayNeo IO",
+      "latitude": 81,
+      "longitude": 63,
+      "locale": "",
+      "currentDateTime": "2025-07-26 11:49",
+      "physicalRegion": "深圳",
+      "physicalTimeZone": "Asia/Shanghai",
+      "timestamp": 4994850898275193,
+      "timeZone": "Asia/Shanghai",
+      "region": "西北",
+      "languageCode": "zh"
+    },
+    "body": {
+      "text": "启动关键词翻译模式",
+      "model": "RAYNEO_AI",
+      "msgSource": "glasses"
+    }
+  },
+  {
+    "header": {
+      "dialogId": "105",
+      "deviceId": "93",
+      "roundId": "1005",
+      "round": 0,
+      "userId": "23",
+      "traceId": "",
+      "deviceModel": "RayNeo IO",
+      "latitude": 81,
+      "longitude": 63,
+      "locale": "",
+      "currentDateTime": "2025-07-26 11:49",
+      "physicalRegion": "深圳",
+      "physicalTimeZone": "Asia/Shanghai",
+      "timestamp": 4994850898275194,
+      "timeZone": "Asia/Shanghai",
+      "region": "西北",
+      "languageCode": "zh"
+    },
+    "body": {
+      "text": "提醒我下午5点去打羽毛球",
+      "model": "RAYNEO_AI",
+      "msgSource": "glasses"
+    }
+  },
+  {
+    "header": {
+      "dialogId": "106",
+      "deviceId": "93",
+      "roundId": "1006",
+      "round": 0,
+      "userId": "23",
+      "traceId": "",
+      "deviceModel": "RayNeo IO",
+      "latitude": 81,
+      "longitude": 63,
+      "locale": "",
+      "currentDateTime": "2025-07-26 11:49",
+      "physicalRegion": "深圳",
+      "physicalTimeZone": "Asia/Shanghai",
+      "timestamp": 4994850898275195,
+      "timeZone": "Asia/Shanghai",
+      "region": "西北",
+      "languageCode": "zh"
+    },
+    "body": {
+      "text": "帮我记一下，月底前要整理飞书测试数据",
+      "model": "RAYNEO_AI",
+      "msgSource": "glasses"
+    }
+  },
+  {
+    "header": {
+      "dialogId": "107",
+      "deviceId": "93",
+      "roundId": "1007",
+      "round": 0,
+      "userId": "23",
+      "traceId": "",
+      "deviceModel": "RayNeo IO",
+      "latitude": 81,
+      "longitude": 63,
+      "locale": "",
+      "currentDateTime": "2025-07-26 11:49",
+      "physicalRegion": "深圳",
+      "physicalTimeZone": "Asia/Shanghai",
+      "timestamp": 4994850898275196,
+      "timeZone": "Asia/Shanghai",
+      "region": "西北",
+      "languageCode": "zh"
+    },
+    "body": {
+      "text": "春节是多少号",
+      "model": "RAYNEO_AI",
+      "msgSource": "glasses"
+    }
+  },
+  {
+    "header": {
+      "dialogId": "108",
+      "deviceId": "93",
+      "roundId": "1008",
+      "round": 0,
+      "userId": "23",
+      "traceId": "",
+      "deviceModel": "RayNeo IO",
+      "latitude": 81,
+      "longitude": 63,
+      "locale": "",
+      "currentDateTime": "2025-07-26 11:49",
+      "physicalRegion": "深圳",
+      "physicalTimeZone": "Asia/Shanghai",
+      "timestamp": 4994850898275197,
+      "timeZone": "Asia/Shanghai",
+      "region": "西北",
+      "languageCode": "zh"
+    },
+    "body": {
+      "text": "现在纽约当地几点钟",
+      "model": "RAYNEO_AI",
+      "msgSource": "glasses"
+    }
+  },
+  {
+    "header": {
+      "dialogId": "110",
+      "deviceId": "93",
+      "roundId": "1010",
+      "round": 0,
+      "userId": "23",
+      "traceId": "",
+      "deviceModel": "RayNeo IO",
+      "latitude": 81,
+      "longitude": 63,
+      "locale": "",
+      "currentDateTime": "2025-07-26 11:49",
+      "physicalRegion": "深圳",
+      "physicalTimeZone": "Asia/Shanghai",
+      "timestamp": 4994850898275199,
+      "timeZone": "Asia/Shanghai",
+      "region": "西北",
+      "languageCode": "zh"
+    },
+    "body": {
+      "text": "下午三点半",
+      "messages": [
+        {
+          "role": "user",
+          "content": "提醒我去开会"
+        },
+        {
+          "role": "assistant",
+          "content": "好的，什么时候提醒你去开会？"
+        }
+      ],
+      "model": "RAYNEO_AI",
+      "msgSource": "glasses"
+    }
+  },
+  {
+    "header": {
+      "dialogId": "110",
+      "deviceId": "93",
+      "roundId": "1010",
+      "round": 0,
+      "userId": "23",
+      "traceId": "",
+      "deviceModel": "RayNeo IO",
+      "latitude": 81,
+      "longitude": 63,
+      "locale": "",
+      "currentDateTime": "2025-07-26 11:49",
+      "physicalRegion": "深圳",
+      "physicalTimeZone": "Asia/Shanghai",
+      "timestamp": 4994850898275199,
+      "timeZone": "Asia/Shanghai",
+      "region": "西北",
+      "languageCode": "zh"
+    },
+    "body": {
+      "text": "那明天呢",
+      "messages": [
+        {
+          "role": "user",
+          "content": "今天深圳天气怎么样，适合洗车吗"
+        },
+        {
+          "role": "assistant",
+          "content": "今天深圳有阵雨，湿度较高，不太适合洗车。"
+        }
+      ],
+      "model": "RAYNEO_AI",
+      "msgSource": "glasses"
+    }
+  }
+]

@@ -100,12 +100,15 @@ class PressureRunner:
             config=self.config,
             global_start_ts=global_start_ts,
             body=body_info["body"],
+            stop_event=self.stop_event,
         )
         result.body_template_index = body_info["body_template_index"]
         result.body_template_label = body_info["body_template_label"]
 
         with result_lock:
             if not self.collecting_event.is_set():
+                return result
+            if self.stop_event.is_set() and result.error == "Cancelled":
                 return result
             results.append(result)
             snapshot = list(results)
@@ -189,6 +192,8 @@ class PressureRunner:
         self._log(f"URL: {self.config.url}")
         self._log(f"Method: {self.config.method}")
         self._log(f"并发数: {self.config.concurrency}")
+        self._log(f"首帧超时: {self.config.first_frame_timeout} 秒")
+        self._log(f"完整超时: {self.config.timeout} 秒")
 
         if self.config.run_mode == RUN_MODE_DURATION:
             self._log(f"压测模式: 按时长")

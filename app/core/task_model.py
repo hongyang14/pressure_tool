@@ -31,6 +31,7 @@ class PressureTaskConfig:
     concurrency: int
     total_requests: int
     timeout: float
+    first_frame_timeout: float
     ramp_up: float
     success_keyword: str
     output_dir: str

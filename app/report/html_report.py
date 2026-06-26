@@ -59,8 +59,8 @@ def _body_template_rows(body_metrics):
             <td class="success">{item["success_count"]}</td>
             <td class="fail">{item["fail_count"]}</td>
             <td>{format_rate(item["success_rate"])}</td>
+            <td>{format_ms(item["avg_first_frame_latency"])}</td>
             <td>{format_ms(item["avg_latency"])}</td>
-            <td>{format_ms(item["p95_latency"])}</td>
         </tr>
         """
     return rows
@@ -81,8 +81,8 @@ def _body_template_section(body_metrics):
             <th>成功数</th>
             <th>失败数</th>
             <th>成功率</th>
-            <th>平均耗时</th>
-            <th>P95</th>
+            <th>平均首帧时延</th>
+            <th>平均完整耗时</th>
         </tr>
         {rows}
     </table>
@@ -199,7 +199,8 @@ a {{
         <tr><td>思考时间</td><td>{_format_think_time(config_dict)}</td></tr>
         <tr><td>Body 数据文件</td><td>{html.escape(config_dict.get("body_data_file") or "未使用")}</td></tr>
         <tr><td>Proto 文件</td><td>{html.escape(config_dict.get("proto_file") or "未使用")}</td></tr>
-        <tr><td>超时时间</td><td>{config_dict["timeout"]} 秒</td></tr>
+        <tr><td>首帧超时</td><td>{config_dict.get("first_frame_timeout", config_dict["timeout"])} 秒</td></tr>
+        <tr><td>完整超时</td><td>{config_dict["timeout"]} 秒</td></tr>
         <tr><td>Ramp-up</td><td>{config_dict["ramp_up"]} 秒</td></tr>
         <tr><td>成功关键字</td><td>{html.escape(config_dict["success_keyword"])}</td></tr>
     </table>
@@ -225,14 +226,26 @@ a {{
     <h2>三、耗时指标</h2>
     <table>
         <tr><th>指标</th><th>值</th></tr>
-        <tr><td>平均耗时</td><td>{format_ms(metrics["avg_latency"])}</td></tr>
-        <tr><td>成功请求平均耗时</td><td>{format_ms(metrics["success_avg_latency"])}</td></tr>
-        <tr><td>最小耗时</td><td>{format_ms(metrics["min_latency"])}</td></tr>
-        <tr><td>最大耗时</td><td>{format_ms(metrics["max_latency"])}</td></tr>
-        <tr><td>P50</td><td>{format_ms(metrics["p50_latency"])}</td></tr>
-        <tr><td>P90</td><td>{format_ms(metrics["p90_latency"])}</td></tr>
-        <tr><td>P95</td><td>{format_ms(metrics["p95_latency"])}</td></tr>
-        <tr><td>P99</td><td>{format_ms(metrics["p99_latency"])}</td></tr>
+        <tr><td>平均首帧时延</td><td>{format_ms(metrics["avg_first_frame_latency"])}</td></tr>
+        <tr><td>成功请求平均首帧时延</td><td>{format_ms(metrics["success_avg_first_frame_latency"])}</td></tr>
+        <tr><td>最小首帧时延</td><td>{format_ms(metrics["min_first_frame_latency"])}</td></tr>
+        <tr><td>最大首帧时延</td><td>{format_ms(metrics["max_first_frame_latency"])}</td></tr>
+        <tr><td>首帧 P50</td><td>{format_ms(metrics["p50_first_frame_latency"])}</td></tr>
+        <tr><td>首帧 P90</td><td>{format_ms(metrics["p90_first_frame_latency"])}</td></tr>
+        <tr><td>首帧 P95</td><td>{format_ms(metrics["p95_first_frame_latency"])}</td></tr>
+        <tr><td>首帧 P99</td><td>{format_ms(metrics["p99_first_frame_latency"])}</td></tr>
+    </table>
+    <h3>完整请求 / 完整流耗时</h3>
+    <table>
+        <tr><th>指标</th><th>值</th></tr>
+        <tr><td>平均完整耗时</td><td>{format_ms(metrics["avg_latency"])}</td></tr>
+        <tr><td>成功请求平均完整耗时</td><td>{format_ms(metrics["success_avg_latency"])}</td></tr>
+        <tr><td>最小完整耗时</td><td>{format_ms(metrics["min_latency"])}</td></tr>
+        <tr><td>最大完整耗时</td><td>{format_ms(metrics["max_latency"])}</td></tr>
+        <tr><td>完整耗时 P50</td><td>{format_ms(metrics["p50_latency"])}</td></tr>
+        <tr><td>完整耗时 P90</td><td>{format_ms(metrics["p90_latency"])}</td></tr>
+        <tr><td>完整耗时 P95</td><td>{format_ms(metrics["p95_latency"])}</td></tr>
+        <tr><td>完整耗时 P99</td><td>{format_ms(metrics["p99_latency"])}</td></tr>
     </table>
 </div>
 

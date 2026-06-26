@@ -32,13 +32,17 @@ def build_request(url, method, headers, body):
     )
 
 
-def send_one_request(request_id, config, global_start_ts, body=None) -> RequestResult:
+def send_one_request(request_id, config, global_start_ts, body=None, stop_event=None) -> RequestResult:
+    if stop_event is not None and stop_event.is_set():
+        return _cancelled_result(request_id, global_start_ts)
+
     if config.method.upper() == "GRPC":
         return send_grpc_request(
             request_id=request_id,
             config=config,
             global_start_ts=global_start_ts,
             body=body,
+            stop_event=stop_event,
         )
 
     start_perf = time.perf_counter()
@@ -114,6 +118,7 @@ def send_one_request(request_id, config, global_start_ts, body=None) -> RequestR
         status_code=status_code,
         error=error,
         latency_ms=latency_ms,
+        first_frame_latency_ms=latency_ms,
         response_bytes=response_bytes,
         start_time=datetime.fromtimestamp(start_ts).strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
         end_time=datetime.fromtimestamp(end_ts).strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
@@ -126,3 +131,20 @@ def _short_text(text, limit=300):
     if len(text) <= limit:
         return text
     return text[:limit] + "..."
+
+
+def _cancelled_result(request_id, global_start_ts):
+    now_ts = time.time()
+    timestamp = datetime.fromtimestamp(now_ts).strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+    return RequestResult(
+        request_id=request_id,
+        success=False,
+        status_code=None,
+        error="Cancelled",
+        latency_ms=0,
+        first_frame_latency_ms=0,
+        response_bytes=0,
+        start_time=timestamp,
+        end_time=timestamp,
+        relative_end_second=int(now_ts - global_start_ts),
+    )

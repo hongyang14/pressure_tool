@@ -4,6 +4,7 @@ import importlib.util
 import json
 import re
 import sys
+import threading
 import time
 from datetime import datetime
 from pathlib import Path
@@ -12,7 +13,15 @@ from urllib.parse import urlsplit
 from app.core.result_model import RequestResult
 
 
-def send_grpc_request(request_id, config, global_start_ts, body=None) -> RequestResult:
+class _GrpcCancelled(Exception):
+    pass
+
+
+class _FirstFrameTimeout(Exception):
+    pass
+
+
+def send_grpc_request(request_id, config, global_start_ts, body=None, stop_event=None) -> RequestResult:
     start_perf = time.perf_counter()
     start_ts = time.time()
 
@@ -20,11 +29,15 @@ def send_grpc_request(request_id, config, global_start_ts, body=None) -> Request
     error = ""
     response_bytes = 0
     success = False
+    first_frame_latency_ms = 0
     request_body = config.body if body is None else body
     debug_info = ""
 
     try:
         import grpc
+
+        if stop_event is not None and stop_event.is_set():
+            raise _GrpcCancelled()
 
         target, method_path, secure = _parse_grpc_url(config.url)
         proto_method = None
@@ -49,13 +62,16 @@ def send_grpc_request(request_id, config, global_start_ts, body=None) -> Request
 
         channel = grpc.secure_channel(target, grpc.ssl_channel_credentials()) if secure else grpc.insecure_channel(target)
         try:
-            response_bytes, response_text = _invoke_grpc(
+            response_bytes, response_text, first_frame_latency_ms = _invoke_grpc(
                 channel=channel,
                 method_path=method_path,
                 payload=payload,
                 timeout=config.timeout,
                 metadata=metadata,
                 proto_method=proto_method,
+                stop_event=stop_event,
+                start_perf=start_perf,
+                first_frame_timeout=config.first_frame_timeout,
             )
         finally:
             channel.close()
@@ -80,6 +96,12 @@ def send_grpc_request(request_id, config, global_start_ts, body=None) -> Request
     except ValueError as e:
         error = str(e)
 
+    except _GrpcCancelled:
+        error = "Cancelled"
+
+    except _FirstFrameTimeout:
+        error = f"FirstFrameTimeout: {config.first_frame_timeout} seconds"
+
     except Exception as e:
         code = getattr(e, "code", lambda: None)()
         details = getattr(e, "details", lambda: "")()
@@ -91,6 +113,8 @@ def send_grpc_request(request_id, config, global_start_ts, body=None) -> Request
 
     end_ts = time.time()
     latency_ms = (time.perf_counter() - start_perf) * 1000
+    if first_frame_latency_ms <= 0 and response_bytes > 0:
+        first_frame_latency_ms = latency_ms
 
     return RequestResult(
         request_id=request_id,
@@ -98,6 +122,7 @@ def send_grpc_request(request_id, config, global_start_ts, body=None) -> Request
         status_code=status_code,
         error=error,
         latency_ms=latency_ms,
+        first_frame_latency_ms=first_frame_latency_ms,
         response_bytes=response_bytes,
         start_time=datetime.fromtimestamp(start_ts).strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
         end_time=datetime.fromtimestamp(end_ts).strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
@@ -133,7 +158,19 @@ def _parse_grpc_url(url):
     return target, method_path, secure
 
 
-def _invoke_grpc(channel, method_path, payload, timeout, metadata, proto_method):
+def _invoke_grpc(
+    channel,
+    method_path,
+    payload,
+    timeout,
+    metadata,
+    proto_method,
+    stop_event=None,
+    start_perf=None,
+    first_frame_timeout=None,
+):
+    start_perf = start_perf or time.perf_counter()
+
     if proto_method and proto_method["server_streaming"]:
         stub = channel.unary_stream(
             method_path,
@@ -142,18 +179,77 @@ def _invoke_grpc(channel, method_path, payload, timeout, metadata, proto_method)
         )
         raw_parts = []
         text_parts = []
-        for raw in stub(payload, timeout=timeout, metadata=metadata):
-            raw_parts.append(raw or b"")
-            text_parts.append(_decode_response(raw or b"", proto_method))
-        return sum(len(item) for item in raw_parts), "\n".join(text_parts)
+        first_frame_latency_ms = 0
+        first_frame_received = threading.Event()
+        call = stub(payload, timeout=timeout, metadata=metadata)
+        _cancel_call_on_stop(call, stop_event)
+        _cancel_call_on_first_frame_timeout(call, first_frame_received, first_frame_timeout)
+        try:
+            for raw in call:
+                if stop_event is not None and stop_event.is_set():
+                    call.cancel()
+                    raise _GrpcCancelled()
+                if first_frame_latency_ms <= 0:
+                    first_frame_latency_ms = (time.perf_counter() - start_perf) * 1000
+                    first_frame_received.set()
+                raw_parts.append(raw or b"")
+                text_parts.append(_decode_response(raw or b"", proto_method))
+        except Exception:
+            if stop_event is not None and stop_event.is_set():
+                raise _GrpcCancelled()
+            if not first_frame_received.is_set() and first_frame_timeout:
+                raise _FirstFrameTimeout()
+            raise
+        return sum(len(item) for item in raw_parts), "\n".join(text_parts), first_frame_latency_ms
 
     stub = channel.unary_unary(
         method_path,
         request_serializer=lambda value: value,
         response_deserializer=lambda value: value,
     )
-    raw = stub(payload, timeout=timeout, metadata=metadata)
-    return len(raw or b""), _decode_response(raw or b"", proto_method)
+    future = stub.future(payload, timeout=timeout, metadata=metadata)
+    _cancel_call_on_stop(future, stop_event)
+    first_frame_received = threading.Event()
+    _cancel_call_on_first_frame_timeout(future, first_frame_received, first_frame_timeout)
+    try:
+        raw = future.result()
+        first_frame_received.set()
+    except Exception:
+        if stop_event is not None and stop_event.is_set():
+            raise _GrpcCancelled()
+        if not first_frame_received.is_set() and first_frame_timeout:
+            raise _FirstFrameTimeout()
+        raise
+    first_frame_latency_ms = (time.perf_counter() - start_perf) * 1000
+    return len(raw or b""), _decode_response(raw or b"", proto_method), first_frame_latency_ms
+
+
+def _cancel_call_on_stop(call, stop_event):
+    if stop_event is None:
+        return
+
+    def watch():
+        stop_event.wait()
+        try:
+            call.cancel()
+        except Exception:
+            pass
+
+    threading.Thread(target=watch, daemon=True).start()
+
+
+def _cancel_call_on_first_frame_timeout(call, first_frame_received, first_frame_timeout):
+    if not first_frame_timeout or first_frame_timeout <= 0:
+        return
+
+    def watch():
+        if not first_frame_received.wait(first_frame_timeout):
+            try:
+                call.cancel()
+            except Exception:
+                pass
+
+    threading.Thread(target=watch, daemon=True).start()
 
 
 def _build_metadata(headers):

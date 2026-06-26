@@ -1,41 +1,298 @@
+# API Pressure Tool
+
+一个基于 Tkinter 的接口压测工具，支持 HTTP POST/GET/PUT/DELETE 和 gRPC 请求。工具可以从接口定义文件中加载接口选项，支持 Body 数据文件参数化，并在压测结束后生成 HTML、CSV、JSON 报告。
+
+## 启动方式
+
+```bash
+python main.py
+```
+
+如果系统没有 `python` 命令，请使用你本机实际安装的 Python 解释器运行 `main.py`。
+
+## 目录说明
+
+```text
 api_pressure_tool/
-│
-├── main.py                                   # 项目的主入口文件
-│
+├── main.py                     # 程序入口
+├── interfaces/
+│   └── interfaces.txt           # 接口定义文件，POST/gRPC 接口都在这里配置
+├── body_data/                   # Body 数据文件目录，用于参数化请求体
+├── proto_files/                 # gRPC proto 文件目录
+├── reports/                     # 压测报告输出目录
 └── app/
-    ├── __init__.py                           # app 包的初始化
-    ├── config/
-    │   ├── __init__.py                       # config 包的初始化
-    │   └── default_config.py                  # 默认配置文件
-    │
-    ├── core/
-    │   ├── __init__.py                       # core 包的初始化
-    │   ├── http_client.py                     # 处理 HTTP 请求的客户端
-    │   ├── metrics.py                         # 可能涉及的性能指标
-    │   ├── pressure_runner.py                 # 负责执行压力测试的核心逻辑
-    │   ├── result_model.py                    # 处理测试结果的模型
-    │   └── task_model.py                      # 定义压力测试任务的模型
-    │
-    ├── gui/                                   # 图形用户界面相关代码
-    │   ├── __init__.py                        # gui 包的初始化
-    │   ├── config_panel.py                    # 配置面板的界面
-    │   ├── log_panel.py                       # 日志面板的界面
-    │   ├── main_window.py                     # 主窗口的 GUI 逻辑
-    │   └── metric_panel.py                    # 性能指标面板的 GUI
-    │
-    ├── report/                                # 报告相关模块
-    │   ├── __init__.py                        # report 包的初始化
-    │   ├── chart.py                           # 生成图表的功能
-    │   ├── csv_report.py                      # 生成 CSV 格式报告
-    │   ├── html_report.py                     # 生成 HTML 格式报告
-    │   ├── json_report.py                     # 生成 JSON 格式报告
-    │   └── report_generator.py                 # 处理报告生成的逻辑
-    │
-    ├── utils/                                 # 工具类模块
-    │   ├── __init__.py                        # utils 包的初始化
-    │   ├── body_utils.py                      # 处理请求体的工具
-    │   ├── file_utils.py                      # 文件操作工具
-    │   ├── json_utils.py                      # JSON 操作工具
-    │   ├── time_utils.py                      # 时间处理工具
-    │   ├── url_utils.py                       # URL 处理工具
-    │   └── validators.py                       # 验证工具
+    ├── config/                  # 默认配置
+    ├── core/                    # 压测执行、HTTP/gRPC 客户端、指标计算
+    ├── gui/                     # Tkinter 界面
+    ├── report/                  # HTML/CSV/JSON 报告生成
+    └── utils/                   # JSON、Body、接口配置、校验等工具
+```
+
+## 接口配置
+
+接口统一配置在：
+
+```text
+interfaces/interfaces.txt
+```
+
+每个接口用 `---` 分隔，支持 `key: value` 或 `key=value`。
+
+### HTTP POST 示例
+
+```text
+---
+name: 录音总结
+method: POST
+url: http://127.0.0.1:8000/api/v1/sessions
+headers:
+{
+  "Content-Type": "application/json; charset=utf-8"
+}
+body:
+{
+  "text": "hello"
+}
+```
+
+### gRPC 示例
+
+```text
+---
+name: ASK AI
+method: GRPC
+url: http://127.0.0.1:8097
+proto: askai_service.proto
+service: com.tcl.xr.service.AskAiService
+rpc: chat
+request: com.tcl.xr.message.AskAiRequest
+response: com.tcl.xr.message.AskAiResponse
+server_streaming: true
+```
+
+gRPC 的 proto 文件放在：
+
+```text
+proto_files/
+```
+
+如果一个 service proto 引用了多个 proto 文件，请把相关 `.proto` 文件都放到 `proto_files` 下，并在入口 proto 中正常写 `import`。例如：
+
+```proto
+import "askai.proto";
+```
+
+`interfaces.txt` 中的 `proto:` 写入口 service proto 文件名即可。
+
+## Body 数据文件的作用
+
+Body 数据文件用于让压测请求使用多份不同的请求体，而不是每次都发送界面 Body 输入框里的同一份内容。
+
+典型用途：
+
+- 用不同用户、不同文本、不同业务参数发起请求。
+- 批量压测一组真实样本。
+- 对比每一条 Body 数据的成功率和耗时。
+
+Body 数据文件统一放在：
+
+```text
+body_data/
+```
+
+界面里的 `Body 数据文件` 可以填写文件名，例如：
+
+```text
+test_askai.json
+```
+
+程序会自动到 `body_data/test_askai.json` 查找。也可以填写绝对路径。
+
+## Body 数据文件格式
+
+支持 JSON 数组：
+
+```json
+[
+  {
+    "body": {
+      "text": "第一条请求"
+    }
+  },
+  {
+    "body": {
+      "text": "第二条请求"
+    }
+  }
+]
+```
+
+也支持 JSONL，每一行是一条 Body：
+
+```jsonl
+{"body":{"text":"第一条请求"}}
+{"body":{"text":"第二条请求"}}
+```
+
+文件中的每一条数据会作为一次请求的完整 Body。
+
+## Body 数据文件的工作机制
+
+请求体来源有优先级：
+
+```text
+Body 数据文件 > 界面 Body 输入框
+```
+
+也就是说，只要填写了 `Body 数据文件`，压测时就会使用文件里的数据，界面 Body 输入框内容不会发送。运行日志会提示：
+
+```text
+已启用 Body 数据文件，界面 Body 输入框内容不会作为请求体发送
+```
+
+不同压测模式下的数据选择方式：
+
+- 固定请求数模式：按顺序循环使用。
+- 按时长模式：每次请求随机选择一条。
+
+例如 Body 数据文件里有两条数据，总请求数是 5：
+
+```text
+第 1 次请求 -> 第 1 条 Body
+第 2 次请求 -> 第 2 条 Body
+第 3 次请求 -> 第 1 条 Body
+第 4 次请求 -> 第 2 条 Body
+第 5 次请求 -> 第 1 条 Body
+```
+
+## Body 占位符
+
+Body 数据文件和界面 Body 都支持以下占位符：
+
+```text
+{{request_id}}  当前请求编号
+{{index}}       当前请求编号
+{{uuid}}        随机 UUID
+{{timestamp}}   当前毫秒时间戳
+```
+
+示例：
+
+```json
+{
+  "traceId": "{{uuid}}",
+  "text": "第 {{request_id}} 次请求"
+}
+```
+
+发送前会被替换为实际值。
+
+## 每条 Body 的执行结果
+
+如果启用了 Body 数据文件，报告会记录每次请求使用了第几条 Body：
+
+- CSV 明细中包含 `body_template_index` 和 `body_template_label`
+- JSON 报告中包含 `body_template_metrics`
+- HTML 报告中包含 “Body 数据执行结果” 表
+
+可以看到每一条 Body 数据的：
+
+- 请求数
+- 成功数
+- 失败数
+- 成功率
+- 平均耗时
+- P95
+
+## gRPC 说明
+
+gRPC 请求依赖：
+
+```bash
+pip install grpcio grpcio-tools protobuf
+```
+
+工具会根据 proto 把 Body JSON 编码成 protobuf。Body JSON 可以包含多余字段，编码时会忽略 proto 不认识的字段。
+
+如果 proto 中没有 `service` / `rpc` 定义，需要在 `interfaces.txt` 中补充：
+
+```text
+service: 完整服务名
+rpc: 方法名
+request: 请求消息类型
+response: 响应消息类型
+server_streaming: true 或 false
+```
+
+如果 proto 中已经包含 service/rpc，工具会优先使用 proto 里的真实方法描述。
+
+## 报告输出
+
+每次压测结束会在 `reports/` 下生成：
+
+```text
+pressure_report_时间.html       # 可视化报告
+pressure_report_时间_detail.csv # 请求明细
+pressure_report_时间_raw.json   # 原始结果和指标
+```
+
+主要指标包括：
+
+- 总请求数
+- 成功率
+- QPS / TPS
+- 首帧时延：发出请求到收到第一帧响应的时间
+- 完整耗时：发出请求到完整响应或完整流结束的时间
+- 首帧 P50 / P90 / P95 / P99
+- 完整耗时 P50 / P90 / P95 / P99
+- 状态码分布
+- 错误分布
+- Body 数据维度统计
+
+对于 HTTP 和 unary gRPC，首帧时延通常等同于完整响应耗时。对于服务端流式 gRPC，首帧时延表示第一条消息返回的时间，完整耗时表示整个流结束的时间。
+
+## 超时设置
+
+界面中有两个超时配置：
+
+- 首帧超时/s：从发起请求到收到第一帧响应允许等待的最长时间。
+- 完整超时/s：从发起请求到完整响应结束或完整流结束允许等待的最长时间。
+
+对 HTTP 和 unary gRPC 来说，两者通常表现接近。对服务端流式 gRPC 来说，首帧超时用于控制服务多久必须返回第一条消息，完整超时用于控制整个流最多持续多久。
+
+## 常见问题
+
+### 修改 interfaces.txt 后界面没变化
+
+点击界面上的 `刷新接口`，或者重启工具。
+
+### 我改了界面 Body，但请求还是旧内容
+
+检查 `Body 数据文件` 是否仍然填写了文件名。只要启用了 Body 数据文件，界面 Body 不会发送。
+
+### gRPC 报 `Exception deserializing request`
+
+通常是服务端实际使用的 proto/service/rpc/request 类型和本地配置不一致。检查：
+
+```text
+service
+rpc
+request
+response
+proto 文件版本
+服务端端口是否真的是该 gRPC 服务
+```
+
+### proto 编译失败
+
+检查 proto 的 `import` 路径是否和 `proto_files/` 下的实际文件路径一致。例如：
+
+```proto
+import "askai.proto";
+```
+
+要求文件存在于：
+
+```text
+proto_files/askai.proto
+```

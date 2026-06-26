@@ -28,6 +28,7 @@ def validate_task_config(raw: dict) -> PressureTaskConfig:
     concurrency = safe_int(raw.get("concurrency"), 0)
     total_requests = safe_int(raw.get("total_requests"), 0)
     timeout = safe_float(raw.get("timeout"), 0)
+    first_frame_timeout = safe_float(raw.get("first_frame_timeout"), timeout)
     ramp_up = safe_float(raw.get("ramp_up"), 0)
     success_keyword = raw.get("success_keyword", "").strip()
     output_dir = raw.get("output_dir", "").strip()
@@ -68,7 +69,10 @@ def validate_task_config(raw: dict) -> PressureTaskConfig:
         total_requests = 0
 
     if timeout <= 0:
-        raise ValueError("超时时间必须大于 0")
+        raise ValueError("完整超时时间必须大于 0")
+
+    if first_frame_timeout <= 0:
+        raise ValueError("首帧超时时间必须大于 0")
 
     if ramp_up < 0:
         raise ValueError("Ramp-up 时间不能小于 0")
@@ -107,6 +111,7 @@ def validate_task_config(raw: dict) -> PressureTaskConfig:
         concurrency=concurrency,
         total_requests=total_requests,
         timeout=timeout,
+        first_frame_timeout=first_frame_timeout,
         ramp_up=ramp_up,
         success_keyword=success_keyword,
         output_dir=output_dir,
